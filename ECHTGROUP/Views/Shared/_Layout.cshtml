@@ -4,12 +4,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>@ViewData["Title"] - ECHT GROUP</title>
+    <script>
+            try {
+                if (sessionStorage.getItem('splash')) document.documentElement.classList.add('seen');
+                else sessionStorage.setItem('splash', '1');
+            } catch (e) { }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
+    <div id="splash" aria-hidden="true">
+        <div class="sp-mark">eg.</div>
+        <div class="sp-name">ECHT GROUP</div>
+    </div>
     <header class="site-header">
         <div class="wrap">
             <nav class="nav" aria-label="Main">
@@ -21,7 +31,21 @@
                         <span class="mark" aria-hidden="true">eg.</span>ECHT GROUP
                     </a>
                 </div>
-                <a class="btn-echt hb" href="#">Book</a>
+                <div class="hr">
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <a class="icon" asp-area="Identity" asp-page="/Account/Manage/Index" aria-label="Your profile" title="Your profile">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" /></svg>
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="icon" asp-area="Identity" asp-page="/Account/Login" aria-label="Sign in" title="Sign in">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" /><path d="M10 17l5-5-5-5" /><path d="M15 12H3" /></svg>
+                        </a>
+                    }
+                    <a class="btn-echt hb" href="#">Book</a>
+                </div>
             </nav>
         </div>
         <div class="menu" id="menu">

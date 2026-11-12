@@ -655,3 +655,100 @@ h2 {
 .svc-grid.one {
     grid-template-columns: 1fr;
 }
+
+/* ---------- Splash ---------- */
+#splash {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: var(--navy);
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 20px;
+    animation: splashOut .6s ease 2s forwards;
+}
+
+.seen #splash {
+    display: none;
+}
+
+.sp-mark {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--navy);
+    display: grid;
+    place-items: center;
+    font-size: 44px;
+    font-weight: 700;
+    animation: pop .8s cubic-bezier(.2, .9, .3, 1.3) both;
+}
+
+.sp-name {
+    color: #fff;
+    letter-spacing: .3em;
+    font-weight: 600;
+    animation: fadeUp .6s ease .6s both;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(.3);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.12);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes splashOut {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #splash {
+        animation-duration: .01s;
+        animation-delay: .3s;
+    }
+
+    .sp-mark, .sp-name {
+        animation: none;
+    }
+}
+/* ---------- Header icons ---------- */
+.icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--navy);
+    transition: background .2s;
+}
+
+    .icon:hover {
+        background: var(--bg);
+    }
