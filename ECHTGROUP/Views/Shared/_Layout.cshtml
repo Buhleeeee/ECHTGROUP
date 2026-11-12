@@ -28,12 +28,12 @@
             <ul class="links">
                 <li><a asp-controller="Home" asp-action="Index">Home</a></li>
                 <li>
-                    <a href="#">Services</a>
+                    <a asp-controller="Services" asp-action="Index">Services</a>
                     <ul class="sub">
-                        <li><a href="#">Marketing</a></li>
-                        <li><a href="#">Strategic Market Development</a></li>
-                        <li><a href="#">Legal and Compliance</a></li>
-                        <li><a href="#">IT</a></li>
+                        <li><a asp-controller="Services" asp-action="Details" asp-route-id="marketing">Marketing</a></li>
+                        <li><a asp-controller="Services" asp-action="Details" asp-route-id="market-development">Strategic Market Development</a></li>
+                        <li><a asp-controller="Services" asp-action="Details" asp-route-id="legal-compliance">Legal and Compliance</a></li>
+                        <li><a asp-controller="Services" asp-action="Details" asp-route-id="it">IT</a></li>
                     </ul>
                 </li>
                 <li><a href="#">About</a></li>
@@ -64,10 +64,10 @@
                 </div>
                 <div>
                     <h4>Services</h4>
-                    <a href="#">Marketing</a>
-                    <a href="#">Strategic Market Development</a>
-                    <a href="#">Legal and Compliance</a>
-                    <a href="#">IT</a>
+                    <a asp-controller="Services" asp-action="Details" asp-route-id="marketing">Marketing</a>
+                    <a asp-controller="Services" asp-action="Details" asp-route-id="market-development">Strategic Market Development</a>
+                    <a asp-controller="Services" asp-action="Details" asp-route-id="legal-compliance">Legal and Compliance</a>
+                    <a asp-controller="Services" asp-action="Details" asp-route-id="it">IT</a>
                 </div>
                 <div>
                     <h4>Company</h4>
