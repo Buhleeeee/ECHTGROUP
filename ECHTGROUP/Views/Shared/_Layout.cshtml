@@ -2,46 +2,87 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ECHTGROUP</title>
-    <script type="importmap"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>@ViewData["Title"] - ECHT GROUP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/ECHTGROUP.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ECHTGROUP</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+    <header class="site-header">
+        <div class="wrap">
+            <nav class="nav" aria-label="Main">
+                <a class="brand" asp-controller="Home" asp-action="Index">
+                    <span class="mark" aria-hidden="true">eg.</span>ECHT GROUP
+                </a>
+                <div class="hr">
+                    <a class="btn-echt hb" href="#">Book</a>
+                    <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu">
+                        <i></i><i></i><i></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+        <div class="menu" id="menu">
+            <ul class="links">
+                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li>
+                    <a href="#">Services</a>
+                    <ul class="sub">
+                        <li><a href="#">Marketing</a></li>
+                        <li><a href="#">Strategic Market Development</a></li>
+                        <li><a href="#">Legal and Compliance</a></li>
+                        <li><a href="#">IT</a></li>
                     </ul>
+                </li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Team</a></li>
+                <li><a href="#">Insights</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="auth">
+                <a asp-area="Identity" asp-page="/Account/Login">Sign in</a>
+                <a class="btn-echt g" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                <a class="btn-echt" href="#">Book</a>
+            </div>
+        </div>
+    </header>
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <div class="fg">
+                <div>
+                    <b class="fb">ECHT GROUP</b>
+                    <p>Where Strategy Meets Opportunity.</p>
+                    <a class="btn-echt" href="#">Book a consultation</a>
+                </div>
+                <div>
+                    <h4>Services</h4>
+                    <a href="#">Marketing</a>
+                    <a href="#">Strategic Market Development</a>
+                    <a href="#">Legal and Compliance</a>
+                    <a href="#">IT</a>
+                </div>
+                <div>
+                    <h4>Company</h4>
+                    <a href="#">About</a>
+                    <a href="#">Team</a>
+                    <a href="#">Insights</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Contact</a>
+                    <a asp-controller="Home" asp-action="Privacy">Privacy</a>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - ECHTGROUP - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="cp">&copy; @DateTime.Now.Year ECHT GROUP. All rights reserved.</div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
