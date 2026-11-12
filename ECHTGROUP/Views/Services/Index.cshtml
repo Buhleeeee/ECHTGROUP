@@ -1,0 +1,20 @@
+﻿@model List<ECHTGROUP.Models.ServiceInfo>
+@{
+    ViewData["Title"] = "Services";
+}
+
+<section class="band">
+    <div class="wrap">
+        <h1>Services</h1>
+        <p class="lead">Pick a discipline to see what we do and what you get.</p>
+        <div class="svc-grid">
+            @foreach (var s in Model)
+            {
+                <a class="scard" asp-controller="Services" asp-action="Details" asp-route-id="@s.Slug">
+                    <h3>@s.Title</h3>
+                    <p>@s.Summary</p>
+                </a>
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,42 @@
+﻿@model ECHTGROUP.Models.ServiceInfo
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<section class="band">
+    <div class="wrap">
+        <p class="crumb">
+            <a asp-controller="Services" asp-action="Index">Services</a> / @Model.Title
+        </p>
+        <h1>@Model.Title</h1>
+        <p class="lead">@Model.Summary</p>
+
+        <div class="dcols2">
+            <div>
+                <h3>What we do</h3>
+                <ul class="ck">
+                    @foreach (var item in Model.WhatWeDo)
+                    {
+                        <li>@item</li>
+                    }
+                </ul>
+                <h3>What you get</h3>
+                <ul class="ck">
+                    @foreach (var item in Model.WhatYouGet)
+                    {
+                        <li>@item</li>
+                    }
+                </ul>
+                <a class="btn-echt" href="#">Book a consultation</a>
+            </div>
+            <div class="svc-grid one">
+                @foreach (var other in ECHTGROUP.Models.ServiceData.All.Where(x => x.Slug != Model.Slug))
+                {
+                    <a class="scard" asp-controller="Services" asp-action="Details" asp-route-id="@other.Slug">
+                        <h3>@other.Title</h3>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</section>
