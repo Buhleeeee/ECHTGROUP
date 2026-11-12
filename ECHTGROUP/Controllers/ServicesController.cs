@@ -7,7 +7,7 @@ namespace ECHTGROUP.Controllers
     { //start of class
         public IActionResult Index()
         { //start of method
-            return View();
+            return View(ServiceData.All);
         } //end of method
         public IActionResult Details(string id)
         { //start of method
