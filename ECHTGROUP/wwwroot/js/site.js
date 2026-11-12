@@ -44,3 +44,24 @@
         }
     });
 })();
+
+(function () {
+    const items = document.querySelectorAll('.rv');
+    if (!items.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+        items.forEach(el => el.classList.add('in'));
+        return;
+    }
+
+    const io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in');
+                io.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    items.forEach(el => io.observe(el));
+})();
