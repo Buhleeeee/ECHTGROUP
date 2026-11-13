@@ -1,0 +1,70 @@
+﻿@model ECHTGROUP.Models.GetStartedModel
+@{
+    ViewData["Title"] = "Get started";
+}
+
+<section class="gs">
+    <div class="wrap gsg">
+        <div class="gs-intro">
+            <h1>Hi there!</h1>
+            <p class="gs-lead">Ready to grow?</p>
+            <p>First, we need a few details to get you going. The more you tell us, the better we can match you with the right consultant.</p>
+            <div class="gs-steps" aria-hidden="true">
+                <b class="on">1</b><i></i><b>2</b><i></i><b>3</b>
+            </div>
+        </div>
+
+        <div class="gs-card">
+            <h2>Let’s get started</h2>
+
+            <div class="gs-chat">
+                <div class="gs-avatar" aria-hidden="true">eg.</div>
+                <div class="gs-bubble">
+                    <div class="who"><b>ECHT GROUP</b><span>@DateTime.Now.ToString("ddd d MMM, HH:mm")</span></div>
+                    Hi, I’m your ECHT GROUP consultant. Let’s get your enquiry started.<br />
+                    <a asp-controller="Home" asp-action="Privacy">Speak to a consultant</a>
+                </div>
+            </div>
+
+            @if (TempData["Thanks"] is string thanks)
+            {
+                <p class="ok">@thanks</p>
+            }
+
+            <form asp-action="GetStarted" method="post">
+                <div class="gs-two">
+                    <div class="field">
+                        <label asp-for="FirstName"></label>
+                        <input asp-for="FirstName" class="pill" placeholder="First name" autocomplete="given-name" />
+                        <span asp-validation-for="FirstName" class="err"></span>
+                    </div>
+                    <div class="field">
+                        <label asp-for="LastName"></label>
+                        <input asp-for="LastName" class="pill" placeholder="Last name" autocomplete="family-name" />
+                        <span asp-validation-for="LastName" class="err"></span>
+                    </div>
+                </div>
+                <div class="field">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="pill" placeholder="Email" autocomplete="email" />
+                    <span asp-validation-for="Email" class="err"></span>
+                </div>
+                <div class="field">
+                    <label asp-for="Phone"></label>
+                    <input asp-for="Phone" class="pill" placeholder="Contact number" autocomplete="tel" />
+                    <span asp-validation-for="Phone" class="err"></span>
+                </div>
+                <label class="chk">
+                    <input asp-for="Consent" />
+                    <span>I agree to the <a asp-controller="Home" asp-action="Privacy">privacy policy</a> and consent to my details being stored.</span>
+                </label>
+                <span asp-validation-for="Consent" class="err"></span>
+                <div class="gs-go"><button class="btn-echt" type="submit">Continue</button></div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
