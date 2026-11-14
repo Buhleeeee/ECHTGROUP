@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECHTGROUP.Data;
 
-public class ApplicationDbContext : IdentityDbContext<IdentityUser>
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 { //start of namespace
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
