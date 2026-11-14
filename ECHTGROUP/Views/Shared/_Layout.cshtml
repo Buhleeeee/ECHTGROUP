@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var mainClass = ViewContext.RouteData.Values["area"]?.ToString() == "Identity" ? "wrap idp" : "";
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -74,7 +77,9 @@
         </div>
     </header>
 
-    <main role="main" class="@(ViewContext.RouteData.Values["area"]?.ToString() == "Identity" ? "wrap idp" : "")"> </main>
+    <main role="main" class="@mainClass">
+        @RenderBody()
+    </main>
     <footer class="site-footer">
         <div class="wrap">
             <div class="fg">
