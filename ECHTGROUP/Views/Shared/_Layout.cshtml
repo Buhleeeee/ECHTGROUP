@@ -74,10 +74,7 @@
         </div>
     </header>
 
-    <main role="main">
-        @RenderBody()
-    </main>
-
+    <main role="main" class="@(ViewContext.RouteData.Values["area"]?.ToString() == "Identity" ? "wrap idp" : "")"> </main>
     <footer class="site-footer">
         <div class="wrap">
             <div class="fg">

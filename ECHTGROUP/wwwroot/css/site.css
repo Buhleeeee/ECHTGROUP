@@ -947,3 +947,26 @@ h2 {
     margin-top: 16px;
     text-align: center;
 }
+/* ---------- Identity pages (register, login) ---------- */
+.idp {
+    padding-top: 48px;
+    padding-bottom: 64px;
+}
+
+    .idp .btn-primary {
+        background: #fff;
+        color: var(--navy);
+        border: 2px solid var(--navy);
+        border-radius: 999px;
+        font-weight: 600;
+        transition: background .2s, color .2s;
+    }
+
+        .idp .btn-primary:hover {
+            background: var(--navy);
+            color: #fff;
+        }
+
+    .idp .form-control {
+        border-radius: 12px;
+    }
