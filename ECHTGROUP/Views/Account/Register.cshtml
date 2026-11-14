@@ -1,0 +1,51 @@
+﻿@model ECHTGROUP.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Create account";
+}
+
+<section class="gs">
+    <div class="wrap">
+        <div class="gs-card auth-card">
+            <h2>Create your account</h2>
+
+            <form asp-action="Register" method="post">
+                <div asp-validation-summary="ModelOnly" class="err"></div>
+
+                <div class="field">
+                    <label asp-for="FullName"></label>
+                    <input asp-for="FullName" class="pill" autocomplete="name" />
+                    <span asp-validation-for="FullName" class="err"></span>
+                </div>
+                <div class="field">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="pill" autocomplete="email" />
+                    <span asp-validation-for="Email" class="err"></span>
+                </div>
+                <div class="field">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="pill" autocomplete="new-password" />
+                    <span asp-validation-for="Password" class="err"></span>
+                </div>
+                <div class="field">
+                    <label asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" class="pill" autocomplete="new-password" />
+                    <span asp-validation-for="ConfirmPassword" class="err"></span>
+                </div>
+
+                <label class="chk">
+                    <input asp-for="Consent" />
+                    <span>I agree to the <a asp-controller="Home" asp-action="Privacy">privacy policy</a> and consent to my details being stored.</span>
+                </label>
+                <span asp-validation-for="Consent" class="err"></span>
+
+                <div class="gs-go"><button class="btn-echt" type="submit">Register</button></div>
+            </form>
+
+            <p class="auth-alt">Already have an account? <a asp-action="Login">Sign in</a></p>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

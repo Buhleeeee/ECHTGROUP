@@ -970,3 +970,24 @@ h2 {
     .idp .form-control {
         border-radius: 12px;
     }
+/* ---------- Account pages ---------- */
+.auth-card {
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.auth-alt {
+    text-align: center;
+    margin: 20px 0 0;
+    font-size: 14px;
+    color: var(--mute);
+}
+
+    .auth-alt a {
+        color: var(--navy);
+        font-weight: 600;
+    }
+
+.validation-summary-valid {
+    display: none;
+}
