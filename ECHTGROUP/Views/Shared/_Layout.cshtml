@@ -67,7 +67,7 @@
                 <li><a href="#">Team</a></li>
                 <li><a asp-controller="Home" asp-action="Insights">Insights</a></li>
                 <li><a asp-controller="Home" asp-action="FAQ">FAQ</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
             </ul>
             <div class="auth">
                 @if (User.Identity?.IsAuthenticated == true)
@@ -110,9 +110,9 @@
                     <h4>Company</h4>
                     <a href="#">About</a>
                     <a href="#">Team</a>
-                    <a href="#">Insights</a>
-                    <a href="#">FAQ</a>
-                    <a href="#">Contact</a>
+                    <a asp-controller="Home" asp-action="Insights">Insights</a>
+                    <a asp-controller="Home" asp-action="FAQ">FAQ</a>
+                    <a asp-controller="Home" asp-action="Contact">Contact</a>
                     <a asp-controller="Home" asp-action="Privacy">Privacy</a>
                 </div>
             </div>

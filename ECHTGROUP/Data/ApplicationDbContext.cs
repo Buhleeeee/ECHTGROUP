@@ -13,4 +13,5 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     } //end of method
 
     public DbSet<Enquiry> Enquiries { get; set; }
+    public DbSet<ContactMessage> ContactMessages { get; set; }
 } //end of namespace

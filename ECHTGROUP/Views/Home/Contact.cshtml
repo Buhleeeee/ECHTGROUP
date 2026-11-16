@@ -1,0 +1,50 @@
+﻿@model ECHTGROUP.Models.ContactViewModel
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<section class="gs">
+    <div class="wrap">
+        <h1>Contact us</h1>
+        <p class="lead">Tell us what you are working on, and we’ll reply with how we can help.</p>
+
+        <div class="dcols2">
+            <div class="gs-card">
+                @if (TempData["Thanks"] is string thanks)
+                {
+                    <p class="ok">@thanks</p>
+                }
+
+                <form asp-action="Contact" method="post">
+                    <div class="field">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="pill" autocomplete="name" />
+                        <span asp-validation-for="Name" class="err"></span>
+                    </div>
+                    <div class="field">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="pill" autocomplete="email" />
+                        <span asp-validation-for="Email" class="err"></span>
+                    </div>
+                    <div class="field">
+                        <label asp-for="Message"></label>
+                        <textarea asp-for="Message" class="pill area" rows="5"></textarea>
+                        <span asp-validation-for="Message" class="err"></span>
+                    </div>
+                    <div class="gs-go"><button class="btn-echt" type="submit">Send message</button></div>
+                </form>
+            </div>
+
+            <div class="contact-info">
+                <h3>Prefer email?</h3>
+                <p><a href="mailto:hello@echtgroup.com?subject=Consultation%20enquiry">hello@echtgroup.com</a></p>
+                <h3>Want to talk it through?</h3>
+                <p><a asp-controller="Home" asp-action="GetStarted">Start an enquiry</a> and a consultant will get in touch.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
