@@ -1,0 +1,42 @@
+﻿@model ECHTGROUP.Models.ThreadViewModel
+@{
+    ViewData["Title"] = "Messages";
+}
+
+<section class="band">
+    <div class="wrap">
+        <h1>Messages</h1>
+        <p class="lead">Write to your ECHT GROUP consultant here. We’ll reply as soon as we can.</p>
+
+        <div class="thread" id="thread">
+            @if (Model.Messages.Count == 0)
+            {
+                <p class="meta">No messages yet. Say hello below.</p>
+            }
+            @foreach (var m in Model.Messages)
+            {
+                <div class="bub @(m.FromConsultant ? "them" : "me")">
+                    @m.Body
+                    <span class="stamp">@(m.FromConsultant ? "ECHT GROUP" : "You") · @m.CreatedUtc.ToLocalTime().ToString("d MMM HH:mm")</span>
+                </div>
+            }
+        </div>
+
+        <form asp-action="Index" method="post" class="msgform">
+            <div class="field">
+                <label asp-for="Body">Your message</label>
+                <textarea asp-for="Body" class="pill area" rows="3"></textarea>
+                <span asp-validation-for="Body" class="err"></span>
+            </div>
+            <button class="btn-echt" type="submit">Send</button>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        var t = document.getElementById('thread');
+        if (t) t.scrollTop = t.scrollHeight;
+    </script>
+}

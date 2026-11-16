@@ -1180,3 +1180,47 @@ h2 {
     line-height: 1.1;
     margin-bottom: 8px;
 }
+/* ---------- Messages ---------- */
+.thread {
+    background: var(--bg);
+    border-radius: 24px;
+    padding: 20px;
+    max-height: 420px;
+    overflow-y: auto;
+    margin-bottom: 24px;
+}
+
+.band .thread {
+    background: var(--bg);
+}
+
+.bub {
+    padding: 10px 16px;
+    border-radius: 18px;
+    max-width: 80%;
+    margin: 8px 0;
+    word-wrap: break-word;
+}
+
+    .bub.me {
+        background: var(--navy);
+        color: #fff;
+        margin-left: auto;
+        border-bottom-right-radius: 4px;
+    }
+
+    .bub.them {
+        background: #fff;
+        border-bottom-left-radius: 4px;
+    }
+
+.stamp {
+    display: block;
+    font-size: 12px;
+    opacity: .7;
+    margin-top: 4px;
+}
+
+.msgform {
+    max-width: 640px;
+}
