@@ -16,4 +16,5 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<ContactMessage> ContactMessages { get; set; }
 
     public DbSet<Booking> Bookings { get; set; }
+    public DbSet<ChatMessage> ChatMessages { get; set; }
 } //end of namespace
