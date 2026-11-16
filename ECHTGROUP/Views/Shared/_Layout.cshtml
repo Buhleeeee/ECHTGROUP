@@ -43,7 +43,7 @@
                     }
                     else
                     {
-                        <a class="icon" asp-area="Identity" asp-page="/Account/Login" aria-label="Sign in" title="Sign in">
+                        <a class="icon" asp-area="" asp-controller="Account" asp-action="Login" aria-label="Sign in" title="Sign in">
                             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" /><path d="M10 17l5-5-5-5" /><path d="M15 12H3" /></svg>
                         </a>
                     }
@@ -70,8 +70,19 @@
                 <li><a href="#">Contact</a></li>
             </ul>
             <div class="auth">
-                <a asp-area="Identity" asp-page="/Account/Login">Sign in</a>
-                <a class="btn-echt g" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a href="#">Dashboard</a>
+                    <a asp-area="Identity" asp-page="/Account/Manage/Index">My profile</a>
+                    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+                        <button type="submit" class="signout">Sign out</button>
+                    </form>
+                }
+                else
+                {
+                    <a asp-area="" asp-controller="Account" asp-action="Login">Sign in</a>
+                    <a class="btn-echt g" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                }
                 <a class="btn-echt" href="#">Book</a>
             </div>
         </div>

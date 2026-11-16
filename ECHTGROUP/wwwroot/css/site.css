@@ -991,3 +991,12 @@ h2 {
 .validation-summary-valid {
     display: none;
 }
+.signout {
+    background: none;
+    border: 0;
+    color: #fff;
+    font: inherit;
+    cursor: pointer;
+    text-align: left;
+    padding: 4px 0;
+}
