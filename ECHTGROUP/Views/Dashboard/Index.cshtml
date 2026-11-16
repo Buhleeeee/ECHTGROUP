@@ -1,0 +1,47 @@
+﻿@model ECHTGROUP.Models.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<section class="band">
+    <div class="wrap">
+        <h1>Hello, @Model.Name</h1>
+        <p class="lead">Here is what is happening with your account.</p>
+
+        <div class="dash">
+            <div class="dcard">
+                <p class="cat">Upcoming bookings</p>
+                <div class="big">@Model.UpcomingCount</div>
+                <a asp-controller="Booking" asp-action="Index">View all bookings</a>
+            </div>
+
+            <div class="dcard wide">
+                <p class="cat">Next up</p>
+                @if (Model.Next.Count == 0)
+                {
+                    <p>You have no upcoming bookings.</p>
+                }
+                else
+                {
+                    foreach (var b in Model.Next)
+                    {
+                        <div class="brow">
+                            <div>
+                                <b>@b.Service</b><br />
+                                <span class="meta">@b.Date.ToString("ddd d MMM yyyy") at @b.TimeSlot</span>
+                            </div>
+                            <span class="bstatus">@b.Status</span>
+                        </div>
+                    }
+                }
+                <p class="newb"><a class="btn-echt" asp-controller="Booking" asp-action="Create">New booking</a></p>
+            </div>
+
+            <div class="dcard">
+                <p class="cat">Your details</p>
+                <p>Update the name on your account.</p>
+                <a asp-action="Profile">Edit profile</a>
+            </div>
+        </div>
+    </div>
+</section>

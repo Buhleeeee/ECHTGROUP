@@ -37,7 +37,7 @@
                 <div class="hr">
                     @if (User.Identity?.IsAuthenticated == true)
                     {
-                        <a class="icon" asp-area="Identity" asp-page="/Account/Manage/Index" aria-label="Your profile" title="Your profile">
+                        <a class="icon" asp-area="" asp-controller="Dashboard" asp-action="Index" aria-label="Your dashboard" title="Your dashboard">
                             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" /></svg>
                         </a>
                     }
@@ -72,11 +72,9 @@
             <div class="auth">
                 @if (User.Identity?.IsAuthenticated == true)
                 {
-                    <a asp-controller="Booking" asp-action="Index">My bookings</a>
-                    <a asp-area="Identity" asp-page="/Account/Manage/Index">My profile</a>
-                    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
-                        <button type="submit" class="signout">Sign out</button>
-                    </form>
+                    <a asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                    <a asp-area="" asp-controller="Booking" asp-action="Index">My bookings</a>
+                    <a asp-area="" asp-controller="Dashboard" asp-action="Profile">My profile</a>
                 }
                 else
                 {

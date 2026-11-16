@@ -1,0 +1,39 @@
+﻿@model ECHTGROUP.Models.ProfileViewModel
+@{
+    ViewData["Title"] = "My profile";
+}
+
+<section class="gs">
+    <div class="wrap">
+        <div class="gs-card auth-card">
+            <h2>My profile</h2>
+
+            @if (TempData["Thanks"] is string thanks)
+            {
+                <p class="ok">@thanks</p>
+            }
+
+            <form asp-action="Profile" method="post">
+                <div asp-validation-summary="ModelOnly" class="err"></div>
+
+                <div class="field">
+                    <label asp-for="FullName"></label>
+                    <input asp-for="FullName" class="pill" autocomplete="name" />
+                    <span asp-validation-for="FullName" class="err"></span>
+                </div>
+                <div class="field">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="pill" readonly />
+                </div>
+
+                <div class="gs-go"><button class="btn-echt" type="submit">Save changes</button></div>
+            </form>
+
+            <p class="auth-alt"><a asp-action="Index">Back to dashboard</a></p>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
