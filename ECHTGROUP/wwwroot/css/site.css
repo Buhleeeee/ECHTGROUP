@@ -1,3 +1,4 @@
+@import url('site.css');
 :root {
     --navy: #323c60;
     --bg: #f2f3f6;
@@ -1060,4 +1061,86 @@ h2 {
     margin: 0 0 32px;
     font-size: 16px;
     font-weight: 400;
+}
+/* ---------- Booking ---------- */
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+    .chips label {
+        cursor: pointer;
+        position: relative;
+        margin: 0;
+        font-weight: 500;
+    }
+
+    .chips input {
+        position: absolute;
+        opacity: 0;
+    }
+
+    .chips span {
+        display: block;
+        padding: 8px 16px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #fff;
+        transition: .2s;
+    }
+
+        .chips span:hover {
+            border-color: var(--navy);
+        }
+
+    .chips input:checked + span {
+        background: var(--navy);
+        color: #fff;
+    }
+
+    .chips input:focus-visible + span {
+        outline: 3px solid var(--navy);
+    }
+
+.brow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+    .brow .meta {
+        color: var(--mute);
+    }
+
+.bright {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.bstatus {
+    font-size: 13px;
+    padding: 3px 12px;
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--navy);
+}
+
+.link-btn {
+    background: none;
+    border: 0;
+    color: #b3261e;
+    cursor: pointer;
+    font: inherit;
+    padding: 0;
+    text-decoration: underline;
+}
+
+.newb {
+    margin-top: 28px;
 }

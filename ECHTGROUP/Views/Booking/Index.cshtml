@@ -1,0 +1,43 @@
+﻿@model List<ECHTGROUP.Models.Booking>
+@{
+    ViewData["Title"] = "My bookings";
+}
+
+<section class="band">
+    <div class="wrap">
+        <h1>My bookings</h1>
+
+        @if (TempData["Thanks"] is string thanks)
+        {
+            <p class="ok">@thanks</p>
+        }
+
+        @if (Model.Count == 0)
+        {
+            <p class="lead">You have no bookings yet.</p>
+        }
+        else
+        {
+            @foreach (var b in Model)
+            {
+                <div class="brow">
+                    <div>
+                        <b>@b.Service</b><br />
+                        <span class="meta">@b.Date.ToString("ddd d MMM yyyy") at @b.TimeSlot</span>
+                    </div>
+                    <div class="bright">
+                        <span class="bstatus">@b.Status</span>
+                        @if (b.Status != "Cancelled" && b.Date.Date > DateTime.Today)
+                        {
+                            <form asp-action="Cancel" asp-route-id="@b.Id" method="post">
+                                <button type="submit" class="link-btn">Cancel</button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            }
+        }
+
+        <p class="newb"><a class="btn-echt" asp-action="Create">New booking</a></p>
+    </div>
+</section>

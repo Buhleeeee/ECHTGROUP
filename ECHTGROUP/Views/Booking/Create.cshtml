@@ -1,0 +1,59 @@
+﻿@using ECHTGROUP.Models
+@model BookingViewModel
+@{
+    ViewData["Title"] = "Book a consultation";
+    var services = new SelectList(ServiceData.All, "Title", "Title");
+    var minDate = DateTime.Today.AddDays(1).ToString("yyyy-MM-dd");
+}
+
+<section class="gs">
+    <div class="wrap">
+        <div class="gs-card auth-card">
+            <h2>Book a consultation</h2>
+
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="err"></div>
+
+                <div class="field">
+                    <label asp-for="Service"></label>
+                    <select asp-for="Service" asp-items="services" class="pill">
+                        <option value="">Choose a service</option>
+                    </select>
+                    <span asp-validation-for="Service" class="err"></span>
+                </div>
+
+                <div class="field">
+                    <label asp-for="Date"></label>
+                    <input asp-for="Date" class="pill" min="@minDate" />
+                    <span asp-validation-for="Date" class="err"></span>
+                </div>
+
+                <div class="field">
+                    <label asp-for="TimeSlot"></label>
+                    <div class="chips">
+                        @foreach (var slot in BookingOptions.Slots)
+                        {
+                            <label>
+                                <input type="radio" asp-for="TimeSlot" value="@slot" />
+                                <span>@slot</span>
+                            </label>
+                        }
+                    </div>
+                    <span asp-validation-for="TimeSlot" class="err"></span>
+                </div>
+
+                <div class="field">
+                    <label asp-for="Notes"></label>
+                    <textarea asp-for="Notes" class="pill area" rows="3"></textarea>
+                    <span asp-validation-for="Notes" class="err"></span>
+                </div>
+
+                <div class="gs-go"><button class="btn-echt" type="submit">Request booking</button></div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -47,7 +47,7 @@
                             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" /><path d="M10 17l5-5-5-5" /><path d="M15 12H3" /></svg>
                         </a>
                     }
-                    <a class="btn-echt hb" href="#">Book</a>
+                    <a class="btn-echt hb" asp-controller="Booking" asp-action="Create">Book</a>
                 </div>
             </nav>
         </div>
@@ -72,7 +72,7 @@
             <div class="auth">
                 @if (User.Identity?.IsAuthenticated == true)
                 {
-                    <a href="#">Dashboard</a>
+                    <a asp-controller="Booking" asp-action="Index">My bookings</a>
                     <a asp-area="Identity" asp-page="/Account/Manage/Index">My profile</a>
                     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
                         <button type="submit" class="signout">Sign out</button>
@@ -83,7 +83,7 @@
                     <a asp-area="" asp-controller="Account" asp-action="Login">Sign in</a>
                     <a class="btn-echt g" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
                 }
-                <a class="btn-echt" href="#">Book</a>
+                <a class="btn-echt" asp-controller="Booking" asp-action="Create">Book</a>
             </div>
         </div>
     </header>
@@ -97,7 +97,7 @@
                 <div>
                     <b class="fb">ECHT GROUP</b>
                     <p>Where Strategy Meets Opportunity.</p>
-                    <a class="btn-echt" href="#">Book a consultation</a>
+                    <a class="btn-echt" asp-controller="Booking" asp-action="Create">Book a consultation</a>
                 </div>
                 <div>
                     <h4>Services</h4>
