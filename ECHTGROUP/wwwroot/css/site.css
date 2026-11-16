@@ -1000,3 +1000,36 @@ h2 {
     text-align: left;
     padding: 4px 0;
 }
+/* ---------- FAQ and articles ---------- */
+.faq details {
+    border-bottom: 1px solid var(--line);
+    padding: 16px 0;
+    max-width: 720px;
+}
+
+.faq summary {
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--navy);
+}
+
+.faq details p {
+    color: var(--mute);
+    margin: 10px 0 0;
+}
+
+.cat {
+    font-size: 13px;
+    color: var(--mute);
+    margin: 0 0 6px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+.article {
+    max-width: 720px;
+}
+
+    .article p {
+        margin: 0 0 16px;
+    }

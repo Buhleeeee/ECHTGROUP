@@ -1,0 +1,18 @@
+﻿@model ECHTGROUP.Models.Post
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<section class="band">
+    <div class="wrap article">
+        <p class="crumb">
+            <a asp-controller="Home" asp-action="Insights">Insights</a> / @Model.Category
+        </p>
+        <h1>@Model.Title</h1>
+        @foreach (var para in Model.Paragraphs)
+        {
+            <p>@para</p>
+        }
+        <a class="btn-echt g" asp-controller="Home" asp-action="Insights">Back to insights</a>
+    </div>
+</section>

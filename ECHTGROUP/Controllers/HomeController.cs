@@ -21,17 +21,17 @@ namespace ECHTGROUP.Controllers
         { //start of error method
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         } //end of error method
-        public IActionResult About()             // we added in 4e-3a
+        public IActionResult About()             
         {
             return View();
         }
 
-        public IActionResult Team()              // we added in 4e-3a
+        public IActionResult Team()              
         {
             return View();
         }
 
-        [HttpGet]                                // <- the two actions you pasted
+        [HttpGet]                                
         public IActionResult GetStarted()
         {
             return View(new GetStartedModel());
@@ -50,6 +50,17 @@ namespace ECHTGROUP.Controllers
             TempData["Thanks"] = $"Thanks {model.FirstName}, we’ll be in touch soon.";
             return RedirectToAction(nameof(GetStarted));
         }
-        
+        public IActionResult FAQ() => View();
+
+        public IActionResult Insights() => View(PostData.All);
+
+        public IActionResult Article(string id)
+        {
+            var post = PostData.Find(id);
+            if (post == null) return NotFound();
+            return View(post);
+        }
+
+
     } //end of class
 } //end of namespace

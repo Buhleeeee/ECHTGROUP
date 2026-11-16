@@ -1,0 +1,21 @@
+﻿@model List<ECHTGROUP.Models.Post>
+@{
+    ViewData["Title"] = "Insights";
+}
+
+<section class="band">
+    <div class="wrap">
+        <h1>Insights</h1>
+        <p class="lead">Short, practical articles for growing businesses.</p>
+        <div class="svc-grid">
+            @foreach (var p in Model)
+            {
+                <a class="scard" asp-controller="Home" asp-action="Article" asp-route-id="@p.Slug">
+                    <p class="cat">@p.Category</p>
+                    <h3>@p.Title</h3>
+                    <p>@p.Summary</p>
+                </a>
+            }
+        </div>
+    </div>
+</section>
