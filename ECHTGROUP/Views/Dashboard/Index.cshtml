@@ -1,6 +1,7 @@
 ﻿@model ECHTGROUP.Models.DashboardViewModel
 @{
     ViewData["Title"] = "Dashboard";
+    var initial = string.IsNullOrWhiteSpace(Model.Name) ? "?" : Model.Name.Trim().Substring(0, 1).ToUpper();
 }
 
 <section class="band">
@@ -39,7 +40,24 @@
 
             <div class="dcard">
                 <p class="cat">Your details</p>
-                <p>Update the name on your account.</p>
+                <div class="phead">
+                    @if (!string.IsNullOrEmpty(Model.PhotoPath))
+                    {
+                        <img class="avatar" src="@Model.PhotoPath" alt="Your profile photo" />
+                    }
+                    else
+                    {
+                        <div class="avatar ph" aria-hidden="true">@initial</div>
+                    }
+                    <div>
+                        <b>@Model.Name</b><br />
+                        <span class="meta">@Model.Email</span>
+                    </div>
+                </div>
+                @if (!string.IsNullOrEmpty(Model.Phone))
+                {
+                    <p class="meta">@Model.Phone</p>
+                }
                 <a asp-action="Profile">Edit profile</a>
             </div>
         </div>

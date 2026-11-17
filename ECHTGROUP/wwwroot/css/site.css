@@ -1376,3 +1376,23 @@ button.icon {
 .band.alt .scard {
     background: #fff;
 }
+/* ---------- Full profile ---------- */
+.prof {
+    max-width: 720px;
+}
+
+.sec {
+    font-size: 16px;
+    margin: 24px 0 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+}
+
+.hint {
+    font-size: 13px;
+    color: var(--mute);
+}
+
+select.pill {
+    appearance: auto;
+}

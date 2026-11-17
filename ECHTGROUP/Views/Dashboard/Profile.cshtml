@@ -1,33 +1,137 @@
-﻿@model ECHTGROUP.Models.ProfileViewModel
+﻿@using ECHTGROUP.Models
+@model ProfileViewModel
 @{
     ViewData["Title"] = "My profile";
+    var initial = string.IsNullOrWhiteSpace(Model.FirstName) ? "?" : Model.FirstName.Trim().Substring(0, 1).ToUpper();
+    var titles = new SelectList(ProfileOptions.Titles);
+    var genders = new SelectList(ProfileOptions.Genders);
 }
 
 <section class="gs">
     <div class="wrap">
-        <div class="gs-card auth-card">
-            <h2>My profile</h2>
+        <div class="gs-card auth-card prof">
+            <div class="phead">
+                @if (!string.IsNullOrEmpty(Model.PhotoPath))
+                {
+                    <img class="avatar" src="@Model.PhotoPath" alt="Your profile photo" />
+                }
+                else
+                {
+                    <div class="avatar ph" aria-hidden="true">@initial</div>
+                }
+                <div>
+                    <h2>@Model.DisplayName</h2>
+                    <span class="role">@Model.RoleName</span>
+                </div>
+            </div>
 
             @if (TempData["Thanks"] is string thanks)
             {
                 <p class="ok">@thanks</p>
             }
 
-            <form asp-action="Profile" method="post">
+            <form asp-action="Profile" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="err"></div>
 
+                <h3 class="sec">Personal details</h3>
+                <div class="gs-two">
+                    <div class="field">
+                        <label asp-for="Title"></label>
+                        <select asp-for="Title" asp-items="titles" class="pill">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="Title" class="err"></span>
+                    </div>
+                    <div class="field">
+                        <label asp-for="Gender">Gender (optional)</label>
+                        <select asp-for="Gender" asp-items="genders" class="pill">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="Gender" class="err"></span>
+                    </div>
+                </div>
+                <div class="gs-two">
+                    <div class="field">
+                        <label asp-for="FirstName"></label>
+                        <input asp-for="FirstName" class="pill" autocomplete="given-name" />
+                        <span asp-validation-for="FirstName" class="err"></span>
+                    </div>
+                    <div class="field">
+                        <label asp-for="Surname"></label>
+                        <input asp-for="Surname" class="pill" autocomplete="family-name" />
+                        <span asp-validation-for="Surname" class="err"></span>
+                    </div>
+                </div>
+
+                <h3 class="sec">Contact details</h3>
                 <div class="field">
-                    <label asp-for="FullName"></label>
-                    <input asp-for="FullName" class="pill" autocomplete="name" />
-                    <span asp-validation-for="FullName" class="err"></span>
+                    <label>Email</label>
+                    <input class="pill" value="@Model.Email" readonly />
+                </div>
+                <div class="gs-two">
+                    <div class="field">
+                        <label asp-for="Phone"></label>
+                        <input asp-for="Phone" class="pill" autocomplete="tel" />
+                        <span asp-validation-for="Phone" class="err"></span>
+                    </div>
+                    <div class="field">
+                        <label asp-for="AlternativeContact"></label>
+                        <input asp-for="AlternativeContact" class="pill" autocomplete="off" />
+                        <span asp-validation-for="AlternativeContact" class="err"></span>
+                    </div>
                 </div>
                 <div class="field">
-                    <label asp-for="Email"></label>
-                    <input asp-for="Email" class="pill" readonly />
+                    <label asp-for="AlternativeEmail"></label>
+                    <input asp-for="AlternativeEmail" class="pill" autocomplete="off" />
+                    <span asp-validation-for="AlternativeEmail" class="err"></span>
+                </div>
+
+                <h3 class="sec">Address</h3>
+                <div class="field">
+                    <label asp-for="AddressLine"></label>
+                    <input asp-for="AddressLine" class="pill" autocomplete="street-address" />
+                    <span asp-validation-for="AddressLine" class="err"></span>
+                </div>
+                <div class="gs-two">
+                    <div class="field">
+                        <label asp-for="City"></label>
+                        <input asp-for="City" class="pill" autocomplete="address-level2" />
+                        <span asp-validation-for="City" class="err"></span>
+                    </div>
+                    <div class="field">
+                        <label asp-for="PostalCode"></label>
+                        <input asp-for="PostalCode" class="pill" autocomplete="postal-code" />
+                        <span asp-validation-for="PostalCode" class="err"></span>
+                    </div>
+                </div>
+
+                <h3 class="sec">Photo</h3>
+                <div class="field">
+                    <label asp-for="Photo"></label>
+                    <input asp-for="Photo" class="pill" accept="image/png,image/jpeg,image/webp" />
+                    <span class="hint">JPG, PNG or WebP, up to 2 MB.</span>
+                    <span asp-validation-for="Photo" class="err"></span>
                 </div>
 
                 <div class="gs-go"><button class="btn-echt" type="submit">Save changes</button></div>
             </form>
+
+            @if (!string.IsNullOrEmpty(Model.PhotoPath))
+            {
+                <form asp-action="RemovePhoto" method="post" class="rmphoto">
+                    <button type="submit" class="link-btn">Remove photo</button>
+                </form>
+            }
+
+            <h3 class="sec">Account</h3>
+            <div class="acts">
+                <form asp-area="" asp-controller="Account" asp-action="SwitchAccount" method="post">
+                    <button type="submit" class="btn-echt g">Switch account</button>
+                </form>
+                <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+                    <button type="submit" class="btn-echt">Sign out</button>
+                </form>
+            </div>
 
             <p class="auth-alt"><a asp-action="Index">Back to dashboard</a></p>
         </div>
