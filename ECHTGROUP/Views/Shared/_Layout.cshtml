@@ -36,6 +36,7 @@
                     </a>
                 </div>
                 <div class="hr">
+                    <button class="icon" id="searchBtn" type="button" aria-label="Search" aria-expanded="false" aria-controls="searchBar"><i class="bi bi-search"></i></button>
                     @if (User.Identity?.IsAuthenticated == true)
                     {
                         <a class="icon" asp-area="" asp-controller="Dashboard" asp-action="Index" aria-label="Your dashboard" title="Your dashboard">
@@ -88,6 +89,14 @@
                     <a class="btn-echt g" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
                 }
                 <a class="btn-echt" asp-controller="Booking" asp-action="Create">Book</a>
+            </div>
+        </div>
+        <div class="searchbar" id="searchBar">
+            <div class="wrap">
+                <form asp-area="" asp-controller="Home" asp-action="Search" method="get">
+                    <input class="pill" type="search" name="q" placeholder="Search services, articles and pages" aria-label="Search" />
+                    <button class="btn-echt" type="submit">Search</button>
+                </form>
             </div>
         </div>
     </header>

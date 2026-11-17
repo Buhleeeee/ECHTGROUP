@@ -1,0 +1,38 @@
+﻿@model ECHTGROUP.Models.SearchViewModel
+@{
+    ViewData["Title"] = "Search";
+}
+
+<section class="band">
+    <div class="wrap">
+        <h1>Search</h1>
+
+        <form asp-action="Search" method="get" class="srform">
+            <input class="pill" type="search" name="q" value="@Model.Query" placeholder="Search services, articles and pages" aria-label="Search" />
+            <button class="btn-echt" type="submit">Search</button>
+        </form>
+
+        @if (Model.Query.Length < 2)
+        {
+            <p class="lead">Type at least two letters to search.</p>
+        }
+        else if (Model.Results.Count == 0)
+        {
+            <p class="lead">No results for “@Model.Query”. Try a different word.</p>
+        }
+        else
+        {
+            <p class="lead">@Model.Results.Count @(Model.Results.Count == 1 ? "result" : "results") for “@Model.Query”</p>
+            <div class="svc-grid">
+                @foreach (var r in Model.Results)
+                {
+                    <a class="scard" asp-controller="@r.Controller" asp-action="@r.Action" asp-route-id="@r.Id">
+                        <p class="cat">@r.Type</p>
+                        <h3>@r.Title</h3>
+                        <p>@r.Summary</p>
+                    </a>
+                }
+            </div>
+        }
+    </div>
+</section>

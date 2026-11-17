@@ -65,3 +65,34 @@
 
     items.forEach(el => io.observe(el));
 })();
+(function () {
+    const btn = document.getElementById('searchBtn');
+    const bar = document.getElementById('searchBar');
+    if (!btn || !bar) return;
+    const input = bar.querySelector('input');
+    const burger = document.getElementById('burger');
+
+    function setSearch(open) {
+        document.body.classList.toggle('searching', open);
+        btn.setAttribute('aria-expanded', open);
+        if (open) {
+            document.body.classList.remove('open');
+            if (burger) burger.setAttribute('aria-expanded', 'false');
+            input.focus();
+        }
+    }
+
+    btn.addEventListener('click', function () {
+        setSearch(!document.body.classList.contains('searching'));
+    });
+
+    if (burger) burger.addEventListener('click', function () { setSearch(false); });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') setSearch(false);
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest('.site-header')) setSearch(false);
+    });
+})();

@@ -102,6 +102,41 @@ namespace ECHTGROUP.Controllers
             TempData["Thanks"] = "Thanks, we’ll reply as soon as we can.";
             return RedirectToAction(nameof(Contact));
         } //end of contact post
+        public IActionResult Search(string? q)
+        { //start of search
+            var model = new SearchViewModel { Query = (q ?? "").Trim() };
 
+            if (model.Query.Length >= 2)
+            {
+                var term = model.Query;
+
+                foreach (var s in ServiceData.All)
+                {
+                    if (Matches(term, s.Title, s.Summary, string.Join(" ", s.WhatWeDo), string.Join(" ", s.WhatYouGet)))
+                        model.Results.Add(new SearchResult { Title = s.Title, Summary = s.Summary, Type = "Service", Controller = "Services", Action = "Details", Id = s.Slug });
+                }
+
+                foreach (var post in PostData.All)
+                {
+                    if (Matches(term, post.Title, post.Summary, post.Category, string.Join(" ", post.Paragraphs)))
+                        model.Results.Add(new SearchResult { Title = post.Title, Summary = post.Summary, Type = "Article", Controller = "Home", Action = "Article", Id = post.Slug });
+                }
+
+                var pages = new[]
+                {
+                    new SearchResult { Title = "About", Summary = "Our story and how we work.", Type = "Page", Action = "About" },
+                    new SearchResult { Title = "Team", Summary = "Meet the consultants.", Type = "Page", Action = "Team" },
+                    new SearchResult { Title = "FAQ", Summary = "Answers to common questions.", Type = "Page", Action = "FAQ" },
+                    new SearchResult { Title = "Contact", Summary = "Send us a message.", Type = "Page", Action = "Contact" },
+                    new SearchResult { Title = "Privacy policy", Summary = "How we handle your information.", Type = "Page", Action = "Privacy" }
+                };
+                model.Results.AddRange(pages.Where(pg => Matches(term, pg.Title, pg.Summary)));
+            }
+
+            return View(model);
+        } //end of search
+
+        private static bool Matches(string term, params string[] fields) =>
+            fields.Any(f => f.Contains(term, StringComparison.OrdinalIgnoreCase));
     } //end of class
 } //end of namespace

@@ -8,6 +8,7 @@
         public string Category { get; set; } = "";
         public string Summary { get; set; } = "";
         public List<string> Paragraphs { get; set; } = new();
+        public DateTime Published { get; set; }
     } //end of class
 
     public static class PostData
@@ -17,6 +18,7 @@
         new Post
         {
             Slug = "legal-check",
+            Published = new DateTime(2026, 11, 12),   // legal-check
             Title = "Why every growth plan needs a legal check",
             Category = "Legal and Compliance",
             Summary = "A marketing plan that ignores contracts and data rules can cost more than it earns.",
@@ -30,6 +32,7 @@
         new Post
         {
             Slug = "first-market",
+            Published = new DateTime(2026, 11, 09),   // legal-check
             Title = "Choosing your first new market",
             Category = "Strategic Market Development",
             Summary = "A simple way to compare markets before you commit money to one.",
@@ -43,6 +46,7 @@
         new Post
         {
             Slug = "it-decisions",
+            Published = new DateTime(2026, 10, 29),   // legal-check
             Title = "Five IT decisions small teams get wrong",
             Category = "IT",
             Summary = "Common technology choices that look cheap now and cost more later.",
