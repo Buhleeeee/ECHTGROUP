@@ -1,0 +1,21 @@
+﻿@model ECHTGROUP.ViewComponents.HeaderAvatarModel
+
+@if (Model.SignedIn)
+{
+    <a class="hav" asp-area="" asp-controller="Dashboard" asp-action="Profile" asp-fragment="photo" aria-label="Your profile and photo" title="Your profile">
+        @if (!string.IsNullOrEmpty(Model.PhotoPath))
+        {
+            <img src="@Model.PhotoPath" alt="" />
+        }
+        else
+        {
+            <span>@Model.Initial</span>
+        }
+    </a>
+}
+else
+{
+    <a class="icon" asp-area="" asp-controller="Account" asp-action="Login" aria-label="Sign in" title="Sign in">
+        <i class="bi bi-box-arrow-in-right"></i>
+    </a>
+}

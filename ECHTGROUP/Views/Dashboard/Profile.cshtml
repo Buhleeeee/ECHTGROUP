@@ -105,7 +105,7 @@
                     </div>
                 </div>
 
-                <h3 class="sec">Photo</h3>
+                <h3 class="sec" id="photo">Photo</h3>
                 <div class="field">
                     <label asp-for="Photo"></label>
                     <input asp-for="Photo" class="pill" accept="image/png,image/jpeg,image/webp" />
@@ -124,9 +124,13 @@
             }
 
             <h3 class="sec">Account</h3>
+            <p class="hint">Switch to a different account, or sign out.</p>
             <div class="acts">
-                <form asp-area="" asp-controller="Account" asp-action="SwitchAccount" method="post">
-                    <button type="submit" class="btn-echt g">Switch account</button>
+                <form asp-area="" asp-controller="Account" asp-action="SwitchAccount" asp-route-type="Client" method="post">
+                    <button type="submit" class="btn-echt g">Switch to client account</button>
+                </form>
+                <form asp-area="" asp-controller="Account" asp-action="SwitchAccount" asp-route-type="Employee" method="post">
+                    <button type="submit" class="btn-echt g">Switch to ECHT GROUP employee account</button>
                 </form>
                 <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
                     <button type="submit" class="btn-echt">Sign out</button>

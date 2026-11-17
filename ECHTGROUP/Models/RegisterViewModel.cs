@@ -24,5 +24,10 @@ namespace ECHTGROUP.Models
         public string ConfirmPassword { get; set; } = "";
 
         public bool Consent { get; set; }
+
+        public string AccountType { get; set; } = "Client";
+
+        [Display(Name = "Staff code")]
+        public string? StaffCode { get; set; }
     } //end of class
 } //end of namespace

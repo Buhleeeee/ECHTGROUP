@@ -96,3 +96,52 @@
         if (!e.target.closest('.site-header')) setSearch(false);
     });
 })();
+(function () {
+    const root = document.getElementById('chatBubble');
+    if (!root) return;
+
+    const openBtn = document.getElementById('cbOpen');
+    const closeBtn = document.getElementById('cbClose');
+
+    function setOpen(open) {
+        root.classList.toggle('open', open);
+        openBtn.setAttribute('aria-expanded', open);
+        if (open) {
+            const first = root.querySelector('input, textarea');
+            if (first) first.focus();
+        }
+    }
+
+    openBtn.addEventListener('click', function () {
+        setOpen(!root.classList.contains('open'));
+    });
+
+    closeBtn.addEventListener('click', function () {
+        setOpen(false);
+        openBtn.focus();
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') setOpen(false);
+    });
+
+    const form = document.getElementById('cbForm');
+    if (!form) return;
+    const err = document.getElementById('cbErr');
+
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        err.textContent = '';
+        try {
+            const res = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+            if (res.ok) {
+                form.innerHTML = '<p class="ok">Thanks, we’ll reply as soon as we can.</p>';
+            } else {
+                const data = await res.json().catch(function () { return {}; });
+                err.textContent = data.error || 'Something went wrong. Please try again.';
+            }
+        } catch (ex) {
+            err.textContent = 'Could not send. Please check your connection.';
+        }
+    });
+})();

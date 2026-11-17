@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace ECHTGROUP.Models
-{ //start of namespace
+{ //end of namespace
 
     public class LoginViewModel
     { //start of class
@@ -15,5 +15,7 @@ namespace ECHTGROUP.Models
 
         [Display(Name = "Remember me")]
         public bool RememberMe { get; set; }
+
+        public string AccountType { get; set; } = "Client";
     } //end of class
-} //end of namespace
+}//end of namespace

@@ -1,0 +1,32 @@
+﻿@if (!(User.IsInRole("Consultant") || User.IsInRole("Admin")))
+{
+    <div class="cb" id="chatBubble">
+        <div class="cb-panel" id="cbPanel" role="dialog" aria-label="Chat with ECHT GROUP">
+            <div class="cb-head">
+                <b>Chat with ECHT GROUP</b>
+                <button type="button" class="cb-x" id="cbClose" aria-label="Close chat">&times;</button>
+            </div>
+            <div class="cb-body">
+                <div class="bub them">Hi! How can we help? Send us a message and we’ll reply as soon as we can.</div>
+
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a class="btn-echt" asp-area="" asp-controller="Messages" asp-action="Index">Open my messages</a>
+                    <a class="btn-echt g" asp-area="" asp-controller="Booking" asp-action="Create">Book a consultation</a>
+                }
+                else
+                {
+                    <form id="cbForm" asp-area="" asp-controller="Home" asp-action="QuickMessage" method="post">
+                        <input name="Name" placeholder="Your name" aria-label="Your name" required />
+                        <input name="Email" type="email" placeholder="Your email" aria-label="Your email" required />
+                        <textarea name="Message" rows="3" placeholder="How can we help?" aria-label="Your message" required></textarea>
+                        <div class="err" id="cbErr" role="alert"></div>
+                        <button class="btn-echt" type="submit">Send</button>
+                    </form>
+                    <p class="hint">Have an account? <a asp-area="" asp-controller="Account" asp-action="Login">Sign in</a> to message your consultant directly.</p>
+                }
+            </div>
+        </div>
+        <button type="button" class="cb-btn" id="cbOpen" aria-label="Chat with us" aria-expanded="false" aria-controls="cbPanel"><i class="bi bi-chat-dots-fill"></i></button>
+    </div>
+}

@@ -102,6 +102,29 @@ namespace ECHTGROUP.Controllers
             TempData["Thanks"] = "Thanks, we’ll reply as soon as we can.";
             return RedirectToAction(nameof(Contact));
         } //end of contact post
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> QuickMessage(ContactViewModel model)
+        { //start of quick message
+            if (!ModelState.IsValid)
+            {
+                var message = ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .FirstOrDefault() ?? "Please check your details";
+                return BadRequest(new { error = message });
+            }
+
+            _db.ContactMessages.Add(new ContactMessage
+            {
+                Name = model.Name,
+                Email = model.Email,
+                Message = model.Message
+            });
+            await _db.SaveChangesAsync();
+
+            return Ok(new { ok = true });
+        } //end of quick message
         public IActionResult Search(string? q)
         { //start of search
             var model = new SearchViewModel { Query = (q ?? "").Trim() };

@@ -12,6 +12,14 @@
                 <div asp-validation-summary="ModelOnly" class="err"></div>
 
                 <div class="field">
+                    <label>I am signing in as</label>
+                    <div class="chips" role="radiogroup" aria-label="Account type">
+                        <label><input type="radio" id="type-client" asp-for="AccountType" value="Client" /><span>Client</span></label>
+                        <label><input type="radio" id="type-employee" asp-for="AccountType" value="Employee" /><span>ECHT GROUP employee</span></label>
+                    </div>
+                </div>
+
+                <div class="field">
                     <label asp-for="Email"></label>
                     <input asp-for="Email" class="pill" autocomplete="email" />
                     <span asp-validation-for="Email" class="err"></span>
@@ -30,7 +38,7 @@
                 <div class="gs-go"><button class="btn-echt" type="submit">Sign in</button></div>
             </form>
 
-            <p class="auth-alt">New here? <a asp-action="Register">Create an account</a></p>
+            <p class="auth-alt">New here? <a asp-action="Register" asp-route-type="@Model.AccountType">Create an account</a></p>
         </div>
     </div>
 </section>
