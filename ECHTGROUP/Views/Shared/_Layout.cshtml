@@ -75,6 +75,10 @@
                     <a asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                     <a asp-area="" asp-controller="Booking" asp-action="Index">My bookings</a>
                     <a asp-area="" asp-controller="Messages" asp-action="Index">Messages</a>
+                    if (User.IsInRole("Consultant") || User.IsInRole("Admin"))
+                    {
+                        <a asp-area="" asp-controller="Consultant" asp-action="Index">Inbox</a>
+                    }
                     <a asp-area="" asp-controller="Dashboard" asp-action="Profile">My profile</a>
                 }
                 else

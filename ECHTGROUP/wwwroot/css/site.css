@@ -1224,3 +1224,43 @@ h2 {
 .msgform {
     max-width: 640px;
 }
+/* ---------- Consultant inbox ---------- */
+.inrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: var(--bg);
+    border-radius: 18px;
+    margin-bottom: 12px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: transform .2s;
+}
+
+    .inrow:hover {
+        transform: translateY(-2px);
+    }
+
+    .inrow .who {
+        font-weight: 600;
+        color: var(--navy);
+    }
+
+    .inrow .prev {
+        color: var(--mute);
+        font-size: 14px;
+        max-width: 46ch;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+.unread {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 999px;
+    font-size: 12px;
+    padding: 2px 10px;
+}
