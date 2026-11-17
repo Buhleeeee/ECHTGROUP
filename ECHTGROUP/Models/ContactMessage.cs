@@ -8,5 +8,6 @@
         public string Email { get; set; } = "";
         public string Message { get; set; } = "";
         public DateTime CreatedUtc { get; set; } = DateTime.UtcNow;
+        public bool IsHandled { get; set; }
     } //end of class
 } // end if namespace

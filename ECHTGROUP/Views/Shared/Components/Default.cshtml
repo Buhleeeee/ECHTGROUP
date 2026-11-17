@@ -1,0 +1,32 @@
+﻿@model List<ECHTGROUP.Models.Review>
+
+@if (Model.Count == 0)
+{
+    <p class="lead">No reviews yet. <a asp-controller="Reviews" asp-action="Write">Be the first to write one.</a></p>
+}
+else
+{
+    <div class="panel rot rv-panel">
+        @foreach (var r in Model)
+        {
+            var text = r.Comment.Length > 180 ? r.Comment.Substring(0, 180).TrimEnd() + "…" : r.Comment;
+            <div class="slide">
+                <div class="starsrow">
+                    @for (var i = 1; i <= 5; i++)
+                    {
+                        <span class="@(i <= r.Rating ? "on" : "")">&#9733;</span>
+                    }
+                </div>
+                <p class="rq">“@text”</p>
+                <p class="by">@r.AuthorName</p>
+            </div>
+        }
+        <div class="dots">
+            @foreach (var r in Model)
+            {
+                <i></i>
+            }
+        </div>
+    </div>
+    <p class="newb"><a asp-controller="Reviews" asp-action="Index">Read all reviews</a> · <a asp-controller="Reviews" asp-action="Write">Write a review</a></p>
+}

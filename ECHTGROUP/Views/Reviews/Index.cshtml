@@ -1,0 +1,47 @@
+﻿@model ECHTGROUP.Models.ReviewsPageViewModel
+@{
+    ViewData["Title"] = "Reviews";
+}
+
+<section class="band">
+    <div class="wrap">
+        <h1>Client reviews</h1>
+
+        @if (Model.Count > 0)
+        {
+            <p class="avg"><b>@Model.Average.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture)</b> out of 5 · @Model.Count @(Model.Count == 1 ? "review" : "reviews")</p>
+        }
+
+        @if (TempData["Thanks"] is string thanks)
+        {
+            <p class="ok">@thanks</p>
+        }
+
+        <p><a class="btn-echt" asp-action="Write">Write a review</a></p>
+
+        @if (Model.Reviews.Count == 0)
+        {
+            <p class="lead">No reviews yet. Be the first to share your experience.</p>
+        }
+
+        @foreach (var r in Model.Reviews)
+        {
+            <div class="rcard @(r.IsHidden ? "hid" : "")">
+                <div class="starsrow">
+                    @for (var i = 1; i <= 5; i++)
+                    {
+                        <span class="@(i <= r.Rating ? "on" : "")">&#9733;</span>
+                    }
+                </div>
+                <p class="rtext">@r.Comment</p>
+                <p class="meta">@r.AuthorName · @r.CreatedUtc.ToString("d MMM yyyy")</p>
+                @if (Model.CanModerate)
+                {
+                    <form asp-action="ToggleHidden" asp-route-id="@r.Id" method="post">
+                        <button type="submit" class="link-btn">@(r.IsHidden ? "Show review (currently hidden)" : "Hide review")</button>
+                    </form>
+                }
+            </div>
+        }
+    </div>
+</section>

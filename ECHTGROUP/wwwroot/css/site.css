@@ -1517,3 +1517,124 @@ select.pill {
         transition: none;
     }
 }
+/* ---------- Staff screen and reviews ---------- */
+.h2s {
+    font-size: 22px;
+    margin: 32px 0 12px;
+}
+
+.erow {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+    .erow.done {
+        opacity: .55;
+    }
+
+.ebody {
+    flex: 1;
+    min-width: 0;
+}
+
+.emsg {
+    margin: 6px 0;
+    word-wrap: break-word;
+}
+
+.avg {
+    font-size: 18px;
+    margin: 0 0 16px;
+}
+
+.rcard {
+    background: var(--bg);
+    border-radius: 20px 20px 20px 6px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+}
+
+    .rcard.hid {
+        opacity: .5;
+        border: 2px dashed var(--line);
+    }
+
+    .rcard .rtext {
+        margin: 8px 0;
+        word-wrap: break-word;
+    }
+
+    .rcard .meta {
+        margin: 0;
+        color: var(--mute);
+        font-size: 14px;
+    }
+
+.starsrow span {
+    color: var(--line);
+    font-size: 18px;
+}
+
+    .starsrow span.on {
+        color: #f5c518;
+    }
+
+.panel .starsrow span {
+    color: rgba(255, 255, 255, .35);
+}
+
+    .panel .starsrow span.on {
+        color: #f5c518;
+    }
+
+.panel.rv-panel {
+    min-height: 300px;
+}
+
+.rq {
+    font-size: 18px;
+    line-height: 1.45;
+    margin: 8px 0;
+}
+
+.by {
+    font-size: 14px;
+    opacity: .8;
+    margin: 0;
+}
+
+.stars {
+    position: relative;
+    display: inline-flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+    .stars input {
+        position: absolute;
+        opacity: 0;
+    }
+
+    .stars label {
+        font-size: 32px;
+        line-height: 1;
+        color: var(--line);
+        cursor: pointer;
+        margin: 0;
+        padding: 0 2px;
+    }
+
+        .stars label:hover,
+        .stars label:hover ~ label,
+        .stars input:checked ~ label {
+            color: #f5c518;
+        }
+
+    .stars input:focus-visible + label {
+        outline: 3px solid var(--navy);
+        border-radius: 6px;
+    }

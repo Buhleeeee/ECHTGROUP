@@ -1,0 +1,49 @@
+﻿@model ECHTGROUP.Models.EnquiriesViewModel
+@{
+    ViewData["Title"] = "Enquiries";
+}
+
+<section class="band">
+    <div class="wrap">
+        <p class="crumb"><a asp-action="Index">Inbox</a> / Enquiries</p>
+        <h1>Enquiries and messages</h1>
+
+        <h2 class="h2s">Contact and chat messages</h2>
+        @if (Model.ContactMessages.Count == 0)
+        {
+            <p>No messages yet.</p>
+        }
+        @foreach (var m in Model.ContactMessages)
+        {
+            <div class="erow @(m.IsHandled ? "done" : "")">
+                <div class="ebody">
+                    <b>@m.Name</b> · <a href="mailto:@m.Email">@m.Email</a>
+                    <div class="emsg">@m.Message</div>
+                    <span class="meta">@m.CreatedUtc.ToLocalTime().ToString("d MMM yyyy HH:mm")</span>
+                </div>
+                <form asp-action="ToggleContact" asp-route-id="@m.Id" method="post">
+                    <button type="submit" class="btn-echt g">@(m.IsHandled ? "Reopen" : "Mark handled")</button>
+                </form>
+            </div>
+        }
+
+        <h2 class="h2s">Get started enquiries</h2>
+        @if (Model.Enquiries.Count == 0)
+        {
+            <p>No enquiries yet.</p>
+        }
+        @foreach (var e in Model.Enquiries)
+        {
+            <div class="erow @(e.IsHandled ? "done" : "")">
+                <div class="ebody">
+                    <b>@e.FirstName @e.LastName</b> · <a href="mailto:@e.Email">@e.Email</a> · @e.Phone
+                    <br />
+                    <span class="meta">@e.CreatedUtc.ToLocalTime().ToString("d MMM yyyy HH:mm")</span>
+                </div>
+                <form asp-action="ToggleEnquiry" asp-route-id="@e.Id" method="post">
+                    <button type="submit" class="btn-echt g">@(e.IsHandled ? "Reopen" : "Mark handled")</button>
+                </form>
+            </div>
+        }
+    </div>
+</section>

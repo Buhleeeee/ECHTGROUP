@@ -69,6 +69,7 @@
                     if (User.IsInRole("Consultant") || User.IsInRole("Admin"))
                     {
                         <a asp-area="" asp-controller="Consultant" asp-action="Index">Inbox</a>
+                        <a asp-area="" asp-controller="Consultant" asp-action="Enquiries">Enquiries</a>
                     }
                     <a asp-area="" asp-controller="Dashboard" asp-action="Profile">My profile</a>
                 }
@@ -113,6 +114,7 @@
                     <a href="#">About</a>
                     <a href="#">Team</a>
                     <a asp-controller="Home" asp-action="Insights">Insights</a>
+                    <li><a asp-controller="Reviews" asp-action="Index">Reviews</a></li>
                     <a asp-controller="Home" asp-action="FAQ">FAQ</a>
                     <a asp-controller="Home" asp-action="Contact">Contact</a>
                     <a asp-controller="Home" asp-action="Privacy">Privacy</a>

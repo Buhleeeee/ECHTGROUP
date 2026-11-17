@@ -1,0 +1,43 @@
+﻿@model ECHTGROUP.Models.ReviewFormViewModel
+@{
+    var editing = ViewData["Editing"] is true;
+    ViewData["Title"] = editing ? "Edit your review" : "Write a review";
+}
+
+<section class="gs">
+    <div class="wrap">
+        <div class="gs-card auth-card">
+            <h2>@(editing ? "Edit your review" : "Write a review")</h2>
+
+            <form asp-action="Write" method="post">
+                <div class="field">
+                    <label>Your rating</label>
+                    <div class="stars" role="radiogroup" aria-label="Rating">
+                        @for (var i = 5; i >= 1; i--)
+                        {
+                            <input type="radio" id="r@(i)" name="Rating" value="@i" checked="@(Model.Rating == i)" />
+                            <label for="r@(i)" title="@i stars" aria-label="@i stars">&#9733;</label>
+                        }
+                    </div>
+                    <span asp-validation-for="Rating" class="err"></span>
+                </div>
+
+                <div class="field">
+                    <label asp-for="Comment"></label>
+                    <textarea asp-for="Comment" class="pill area" rows="5"></textarea>
+                    <span asp-validation-for="Comment" class="err"></span>
+                </div>
+
+                <p class="hint">Your first name and the first letter of your surname will be shown with your review.</p>
+
+                <div class="gs-go"><button class="btn-echt" type="submit">@(editing ? "Save changes" : "Post review")</button></div>
+            </form>
+
+            <p class="auth-alt"><a asp-action="Index">Back to reviews</a></p>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

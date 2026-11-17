@@ -9,6 +9,7 @@
         public string Phone { get; set; } = "";
         public bool ConsentGiven { get; set; }
         public DateTime CreatedUtc { get; set; } = DateTime.UtcNow;
+        public bool IsHandled { get; set; }
 
     } //end of class
 } //end of namespace

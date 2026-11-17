@@ -12,12 +12,7 @@
                 <a class="btn-echt g" asp-controller="Services" asp-action="Index">See our services</a>
             </div>
         </div>
-        <div class="panel rot">
-            <div class="slide on"><b>4</b>consulting disciplines</div>
-            <div class="slide"><b>1</b>team and one plan</div>
-            <div class="slide"><b>2022</b>advising growing businesses</div>
-            <div class="dots"><i></i><i></i><i></i></div>
-        </div>
+        @await Component.InvokeAsync("LatestReviews")
     </div>
 </section>
 <section class="band">

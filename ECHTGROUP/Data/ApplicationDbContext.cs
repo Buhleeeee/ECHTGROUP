@@ -3,18 +3,31 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace ECHTGROUP.Data;
+namespace ECHTGROUP.Data
+{
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-{ //start of namespace
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
-    { //start of method
-    } //end of method
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
 
-    public DbSet<Enquiry> Enquiries { get; set; }
-    public DbSet<ContactMessage> ContactMessages { get; set; }
+        public DbSet<Enquiry> Enquiries { get; set; }
+        public DbSet<ContactMessage> ContactMessages { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<ChatMessage> ChatMessages { get; set; }
+        public DbSet<Review> Reviews { get; set; }
 
-    public DbSet<Booking> Bookings { get; set; }
-    public DbSet<ChatMessage> ChatMessages { get; set; }
-} //end of namespace
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<Review>(e =>
+            {
+                e.Property(r => r.UserId).HasMaxLength(450);
+                e.HasIndex(r => r.UserId).IsUnique();
+            });
+        }
+    }
+}

@@ -22,4 +22,9 @@ namespace ECHTGROUP.Models
         [StringLength(1000, ErrorMessage = "Please keep your reply under 1000 characters")]
         public string Body { get; set; } = "";
     } //end of class
+    public class EnquiriesViewModel
+    {
+        public List<ContactMessage> ContactMessages { get; set; } = new();
+        public List<Enquiry> Enquiries { get; set; } = new();
+    }
 } //end of namespace

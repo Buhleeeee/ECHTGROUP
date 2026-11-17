@@ -88,6 +88,41 @@ public class ConsultantController : Controller
 
         return RedirectToAction(nameof(Thread), new { id });
     }
+    public async Task<IActionResult> Enquiries()
+    {
+        var model = new EnquiriesViewModel
+        {
+            ContactMessages = await _db.ContactMessages
+                .OrderBy(m => m.IsHandled).ThenByDescending(m => m.CreatedUtc).ToListAsync(),
+            Enquiries = await _db.Enquiries
+                .OrderBy(e => e.IsHandled).ThenByDescending(e => e.CreatedUtc).ToListAsync()
+        };
+        return View(model);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ToggleContact(int id)
+    {
+        var item = await _db.ContactMessages.FindAsync(id);
+        if (item == null) return NotFound();
+
+        item.IsHandled = !item.IsHandled;
+        await _db.SaveChangesAsync();
+        return RedirectToAction(nameof(Enquiries));
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ToggleEnquiry(int id)
+    {
+        var item = await _db.Enquiries.FindAsync(id);
+        if (item == null) return NotFound();
+
+        item.IsHandled = !item.IsHandled;
+        await _db.SaveChangesAsync();
+        return RedirectToAction(nameof(Enquiries));
+    }
 
     private async Task<ConsultantThreadViewModel> BuildThread(ApplicationUser client, ConsultantThreadViewModel model)
     {
