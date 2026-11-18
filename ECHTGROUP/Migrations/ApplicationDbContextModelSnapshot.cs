@@ -49,6 +49,9 @@ namespace ECHTGROUP.Migrations
                     b.Property<DateTime?>("ConsentGivenUtc")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Department")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");

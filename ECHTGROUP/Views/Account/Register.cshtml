@@ -11,19 +11,24 @@
             <form asp-action="Register" method="post">
                 <div asp-validation-summary="ModelOnly" class="err"></div>
 
-                <div class="field">
-                    <label>I am registering as</label>
-                    <div class="chips" role="radiogroup" aria-label="Account type">
-                        <label><input type="radio" id="type-client" asp-for="AccountType" value="Client" /><span>Client</span></label>
-                        <label><input type="radio" id="type-employee" asp-for="AccountType" value="Employee" /><span>ECHT GROUP employee</span></label>
+                <div class="@(Model.AccountType == "Employee" ? "" : "d-none")" id="staffField">
+                    <div class="field">
+                        <label asp-for="Department">Department</label>
+                        <select asp-for="Department" class="pill">
+                            <option value="">Select your department</option>
+                            @foreach (var d in ECHTGROUP.Models.Departments.Staff)
+                            {
+                                <option value="@d" selected="@(Model.Department == d)">@d</option>
+                            }
+                        </select>
+                        <span asp-validation-for="Department" class="err"></span>
                     </div>
-                </div>
-
-                <div class="field @(Model.AccountType == "Employee" ? "" : "d-none")" id="staffField">
-                    <label asp-for="StaffCode"></label>
-                    <input asp-for="StaffCode" class="pill" autocomplete="off" />
-                    <span class="hint">Given to you by ECHT GROUP.</span>
-                    <span asp-validation-for="StaffCode" class="err"></span>
+                    <div class="field">
+                        <label asp-for="StaffCode"></label>
+                        <input asp-for="StaffCode" class="pill" autocomplete="off" />
+                        <span class="hint">Given to you by ECHT GROUP for your department.</span>
+                        <span asp-validation-for="StaffCode" class="err"></span>
+                    </div>
                 </div>
 
                 <div class="field">

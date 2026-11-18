@@ -37,14 +37,20 @@ namespace ECHTGROUP.Controllers
             if (!model.Consent)
                 ModelState.AddModelError(nameof(model.Consent), "Please agree to the privacy policy");
 
-            if (isStaff && !StaffCodeIsValid(model.StaffCode))
-                ModelState.AddModelError(nameof(model.StaffCode), "That staff code isn’t valid");
+            if (isStaff)
+            {
+                if (string.IsNullOrEmpty(model.Department) || !Departments.Staff.Contains(model.Department))
+                    ModelState.AddModelError(nameof(model.Department), "Please choose your department");
+                else if (!StaffCodeIsValid(model.Department, model.StaffCode))
+                    ModelState.AddModelError(nameof(model.StaffCode), "That staff code isn’t valid for this department");
+            }
 
             if (!ModelState.IsValid)
                 return View(model);
 
             var user = new ApplicationUser
             {
+                Department = isStaff ? model.Department : null,
                 UserName = model.Email,
                 Email = model.Email,
                 FullName = model.FullName,
@@ -56,7 +62,11 @@ namespace ECHTGROUP.Controllers
             if (result.Succeeded)
             {
                 if (isStaff)
+                {
                     await _userManager.AddToRoleAsync(user, "Consultant");
+                    if (model.Department == Departments.Management)
+                        await _userManager.AddToRoleAsync(user, "Admin");
+                }
 
                 await _signInManager.SignInAsync(user, isPersistent: false);
                 return isStaff
@@ -151,15 +161,17 @@ namespace ECHTGROUP.Controllers
         private static string CleanType(string? type) =>
             string.Equals(type, "Employee", StringComparison.OrdinalIgnoreCase) ? "Employee" : "Client";
 
-        private bool StaffCodeIsValid(string? code)
-        {
-            var expected = _config["StaffInviteCode"];
-            if (string.IsNullOrWhiteSpace(expected) || string.IsNullOrWhiteSpace(code))
-                return false;
+        private bool StaffCodeIsValid(string? department, string? code)
+        { //start of bool method
+            if (department == null || string.IsNullOrWhiteSpace(code)) return false;
+
+            var key = Departments.CodeKey(department);
+            var expected = key == null ? null : _config[key];
+            if (string.IsNullOrWhiteSpace(expected)) return false;
 
             var a = SHA256.HashData(Encoding.UTF8.GetBytes(code.Trim()));
             var b = SHA256.HashData(Encoding.UTF8.GetBytes(expected));
             return CryptographicOperations.FixedTimeEquals(a, b);
-        }
+        } //end of method
     } //end of class
 } //end of namespace

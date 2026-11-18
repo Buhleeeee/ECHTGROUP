@@ -29,5 +29,7 @@ namespace ECHTGROUP.Models
 
         [Display(Name = "Staff code")]
         public string? StaffCode { get; set; }
+
+        public string? Department { get; set; }
     } //end of class
 } //end of namespace

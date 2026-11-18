@@ -18,5 +18,6 @@ namespace ECHTGROUP.Models
         public string? PostalCode { get; set; }
         public string? AlternativeEmail { get; set; }
         public string? AlternativeContact { get; set; }
+        public string? Department { get; set; }
     }
 }

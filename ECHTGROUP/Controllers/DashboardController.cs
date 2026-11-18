@@ -169,6 +169,8 @@ namespace ECHTGROUP.Controllers
             model.RoleName = roles.Contains("Admin") ? "Admin"
                            : roles.Contains("Consultant") ? "Consultant"
                            : "Client";
+            if (!string.IsNullOrEmpty(user.Department))
+                model.RoleName += " · " + user.Department;
         }
 
         private static string NameOf(ApplicationUser user)

@@ -12,7 +12,12 @@
                 <a class="btn-echt g" asp-controller="Services" asp-action="Index">See our services</a>
             </div>
         </div>
-        @await Component.InvokeAsync("LatestReviews")
+        <div class="panel rot">
+            <div class="slide on"><b>4</b>consulting disciplines</div>
+            <div class="slide"><b>1</b>team and one plan</div>
+            <div class="slide"><b>2022</b>advising growing businesses</div>
+            <div class="dots"><i></i><i></i><i></i></div>
+        </div>
     </div>
 </section>
 <section class="band">
@@ -69,12 +74,7 @@
 <section class="band">
     <div class="wrap">
         <h2 class="rv">What clients say</h2>
-        <div class="panel rot">
-            <div class="slide"><p class="quote">“One team and one plan saved us months of back and forth.” – George Moagi</p></div>
-            <div class="slide"><p class="quote">“The roadmap made our priorities clear from week one.” – Nobuhle Malindi</p></div>
-            <div class="slide"><p class="quote">“Finally, advice that covers marketing, legal and IT together.” – Sarah-lee Seekoei</p></div>
-            <div class="dots"><i></i><i></i><i></i></div>
-        </div>
+        @await Component.InvokeAsync("LatestReviews")
     </div>
 </section>
 <section class="band alt">

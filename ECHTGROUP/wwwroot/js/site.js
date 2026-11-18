@@ -145,3 +145,34 @@
         }
     });
 })();
+(function () {
+    const header = document.querySelector('.site-header');
+    if (!header) return;
+
+    let lastY = window.scrollY;
+    let ticking = false;
+
+    function update() {
+        const y = window.scrollY;
+        const busy = document.body.classList.contains('open') ||
+                     document.body.classList.contains('searching');
+
+        if (busy || y < 80) {
+            header.classList.remove('hide');
+        } else if (y > lastY + 6) {
+            header.classList.add('hide');
+        } else if (y < lastY - 6) {
+            header.classList.remove('hide');
+        }
+
+        lastY = y;
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+        if (!ticking) {
+            window.requestAnimationFrame(update);
+            ticking = true;
+        }
+    }, { passive: true });
+})();

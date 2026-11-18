@@ -1638,3 +1638,17 @@ select.pill {
         outline: 3px solid var(--navy);
         border-radius: 6px;
     }
+/* ---------- Header hides on scroll ---------- */
+.site-header {
+    transition: transform .3s ease;
+}
+
+    .site-header.hide {
+        transform: translateY(-100%);
+    }
+
+@media (prefers-reduced-motion: reduce) {
+    .site-header {
+        transition: none;
+    }
+}
