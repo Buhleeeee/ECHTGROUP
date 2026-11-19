@@ -22,6 +22,8 @@ namespace ECHTGROUP.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (IsStaff()) return RedirectToAction("Index", "Consultant");
+
             var userId = _userManager.GetUserId(User)!;
             var messages = await LoadThread(userId);
 
@@ -39,6 +41,8 @@ namespace ECHTGROUP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(ThreadViewModel model)
         {
+            if (IsStaff()) return RedirectToAction("Index", "Consultant");
+
             var userId = _userManager.GetUserId(User)!;
 
             if (!ModelState.IsValid)
@@ -58,6 +62,8 @@ namespace ECHTGROUP.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        private bool IsStaff() => User.IsInRole("Consultant") || User.IsInRole("Admin");
 
         private Task<List<ChatMessage>> LoadThread(string clientId) =>
             _db.ChatMessages

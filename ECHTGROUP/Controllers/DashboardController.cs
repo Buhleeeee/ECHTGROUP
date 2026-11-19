@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECHTGROUP.Controllers
-{
+{ //start of namespace
 
     [Authorize]
     public class DashboardController : Controller
-    {
+    { //start of class
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IWebHostEnvironment _env;
@@ -23,10 +23,12 @@ namespace ECHTGROUP.Controllers
             _db = db;
             _userManager = userManager;
             _env = env;
-        }
+        } //end of class
 
         public async Task<IActionResult> Index()
-        {
+        { //start of method
+            if (IsStaff()) return RedirectToAction("Index", "Consultant");
+
             var user = await _userManager.GetUserAsync(User);
             if (user == null) return Challenge();
 
@@ -44,11 +46,11 @@ namespace ECHTGROUP.Controllers
             };
 
             return View(model);
-        }
+        } //end of method
 
         [HttpGet]
         public async Task<IActionResult> Profile()
-        {
+        { //start of profile method
             var user = await _userManager.GetUserAsync(User);
             if (user == null) return Challenge();
 
@@ -59,7 +61,7 @@ namespace ECHTGROUP.Controllers
                 var parts = user.FullName.Trim().Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
                 first = parts[0];
                 last = parts.Length > 1 ? parts[1] : "";
-            }
+            } //end of method
 
             var model = new ProfileViewModel
             {
@@ -159,6 +161,8 @@ namespace ECHTGROUP.Controllers
             return RedirectToAction(nameof(Profile));
         }
 
+        private bool IsStaff() => User.IsInRole("Consultant") || User.IsInRole("Admin");
+
         private async Task FillDisplay(ProfileViewModel model, ApplicationUser user)
         {
             model.Email = user.Email;
@@ -211,14 +215,14 @@ namespace ECHTGROUP.Controllers
             }
 
             return "/uploads/profiles/" + name;
-        }
+        } //end of method
 
         private void DeletePhotoFile(string? webPath)
-        {
+        { //start of method
             if (string.IsNullOrEmpty(webPath) || !webPath.StartsWith("/uploads/profiles/")) return;
 
             var file = Path.Combine(_env.WebRootPath, "uploads", "profiles", Path.GetFileName(webPath));
             if (System.IO.File.Exists(file)) System.IO.File.Delete(file);
-        }
-    }
-}
+        } //end of method
+    } //end of class
+} //end of namespace

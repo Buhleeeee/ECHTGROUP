@@ -10,7 +10,7 @@ namespace ECHTGROUP.Controllers
 
     [Authorize]
     public class BookingController : Controller
-    { //start of class
+    {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
 
@@ -23,6 +23,8 @@ namespace ECHTGROUP.Controllers
         [HttpGet]
         public IActionResult Create(string? service = null)
         {
+            if (IsStaff()) return RedirectToAction("Index", "Consultant");
+
             var model = new BookingViewModel
             {
                 Service = ServiceData.Find(service ?? "")?.Title ?? ""
@@ -34,6 +36,8 @@ namespace ECHTGROUP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BookingViewModel model)
         {
+            if (IsStaff()) return RedirectToAction("Index", "Consultant");
+
             if (ModelState.IsValid)
             {
                 var date = model.Date!.Value.Date;
@@ -63,17 +67,17 @@ namespace ECHTGROUP.Controllers
 
             TempData["Thanks"] = "Your booking request has been received.";
             return RedirectToAction(nameof(Index));
-        } //end of method
+        }
 
         public async Task<IActionResult> Index()
-        { //start of method
+        {
             var userId = _userManager.GetUserId(User);
             var bookings = await _db.Bookings
                 .Where(b => b.UserId == userId)
                 .OrderBy(b => b.Date).ThenBy(b => b.TimeSlot)
                 .ToListAsync();
             return View(bookings);
-        } //end of method
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -88,6 +92,8 @@ namespace ECHTGROUP.Controllers
 
             TempData["Thanks"] = "Your booking was cancelled.";
             return RedirectToAction(nameof(Index));
-        } //end of method
+        }
+
+        private bool IsStaff() => User.IsInRole("Consultant") || User.IsInRole("Admin");
     } //end of class
 } //end of namespace
