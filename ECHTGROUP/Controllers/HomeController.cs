@@ -1,7 +1,7 @@
+using ECHTGROUP.Data;
 using ECHTGROUP.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using ECHTGROUP.Data;
 
 namespace ECHTGROUP.Controllers
 { //start of namespace
@@ -15,20 +15,20 @@ namespace ECHTGROUP.Controllers
         } //end of constructor
 
         public IActionResult Index()
-        { //start of method
+        {
             return View();
-        } //end of method
+        }
 
         public IActionResult Privacy()
-        { //startof privacy method
+        {
             return View();
-        } //end of privacy method
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
-        { //start of error method
+        {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        } //end of error method
+        }
 
         public IActionResult About()
         {
@@ -62,7 +62,8 @@ namespace ECHTGROUP.Controllers
                 LastName = model.LastName,
                 Email = model.Email,
                 Phone = model.Phone,
-                ConsentGiven = model.Consent
+                ConsentGiven = model.Consent,
+                Department = CleanTopic(model.Department)
             });
             await _db.SaveChangesAsync();
 
@@ -95,13 +96,15 @@ namespace ECHTGROUP.Controllers
             {
                 Name = model.Name,
                 Email = model.Email,
-                Message = model.Message
+                Message = model.Message,
+                Department = CleanTopic(model.Department)
             });
             await _db.SaveChangesAsync();
 
             TempData["Thanks"] = "Thanks, we’ll reply as soon as we can.";
             return RedirectToAction(nameof(Contact));
         } //end of contact post
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> QuickMessage(ContactViewModel model)
@@ -119,12 +122,14 @@ namespace ECHTGROUP.Controllers
             {
                 Name = model.Name,
                 Email = model.Email,
-                Message = model.Message
+                Message = model.Message,
+                Department = CleanTopic(model.Department)
             });
             await _db.SaveChangesAsync();
 
             return Ok(new { ok = true });
         } //end of quick message
+
         public IActionResult Search(string? q)
         { //start of search
             var model = new SearchViewModel { Query = (q ?? "").Trim() };
@@ -161,5 +166,9 @@ namespace ECHTGROUP.Controllers
 
         private static bool Matches(string term, params string[] fields) =>
             fields.Any(f => f.Contains(term, StringComparison.OrdinalIgnoreCase));
+
+        private static string CleanTopic(string? topic) =>
+            topic != null && Departments.Topics.Contains(topic) ? topic : Departments.General;
+
     } //end of class
 } //end of namespace

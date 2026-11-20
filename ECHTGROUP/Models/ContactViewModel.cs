@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace ECHTGROUP.Models
-{ //start of namespace
+{
 
     public class ContactViewModel
     { //start of class
@@ -15,5 +15,8 @@ namespace ECHTGROUP.Models
         [Required(ErrorMessage = "Please write a message")]
         [StringLength(2000, ErrorMessage = "Please keep your message under 2000 characters")]
         public string Message { get; set; } = "";
+
+        [Display(Name = "What do you need help with?")]
+        public string? Department { get; set; }
     } //end of class
-} //end of namespace
+}//end of namespace

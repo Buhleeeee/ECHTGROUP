@@ -27,7 +27,7 @@
                         <li>@item</li>
                     }
                 </ul>
-                <a class="btn-echt" href="#">Book a consultation</a>
+                <a class="btn-echt client-only" asp-controller="Booking" asp-action="Create" asp-route-service="@Model.Slug">Book a consultation</a>
             </div>
             <div class="svc-grid one">
                 @foreach (var other in ECHTGROUP.Models.ServiceData.All.Where(x => x.Slug != Model.Slug))

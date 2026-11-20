@@ -12,6 +12,7 @@
 
         public static readonly string[] Staff = { Marketing, MarketDevelopment, Legal, IT, Management };
         public static readonly string[] Topics = { Marketing, MarketDevelopment, Legal, IT, General };
+        public static readonly string[] TopicChoices = { General, Marketing, MarketDevelopment, Legal, IT };
 
         public static string? CodeKey(string department) => department switch
         { //start of class

@@ -10,5 +10,6 @@
         public string Body { get; set; } = "";
         public bool IsRead { get; set; }
         public DateTime CreatedUtc { get; set; } = DateTime.UtcNow;
+        public string Department { get; set; } = Departments.General;
     } //end of class
 }//end of namespace

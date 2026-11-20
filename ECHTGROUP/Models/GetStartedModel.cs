@@ -15,6 +15,9 @@ namespace ECHTGROUP.Models
 
         [Required(ErrorMessage = "Please enter your email")]
         [EmailAddress(ErrorMessage = "That email doesn’t look right")]
+
+        [Display(Name = "What do you need help with?")]
+        public string? Department { get; set; }
         public string Email { get; set; } = "";
 
         [Required(ErrorMessage = "Please enter your contact number")]

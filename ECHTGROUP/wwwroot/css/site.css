@@ -1652,3 +1652,7 @@ select.pill {
         transition: none;
     }
 }
+/* ---------- Staff view ---------- */
+.is-staff .client-only {
+    display: none !important;
+}

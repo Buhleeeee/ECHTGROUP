@@ -1,4 +1,5 @@
-﻿@model ECHTGROUP.Models.ContactViewModel
+﻿@using ECHTGROUP.Models
+@model ECHTGROUP.Models.ContactViewModel
 @{
     ViewData["Title"] = "Contact";
 }
@@ -25,6 +26,10 @@
                         <label asp-for="Email"></label>
                         <input asp-for="Email" class="pill" autocomplete="email" />
                         <span asp-validation-for="Email" class="err"></span>
+                        <div class="field">
+                            <label asp-for="Department"></label>
+                            <select asp-for="Department" asp-items="new SelectList(Departments.TopicChoices)" class="pill"></select>
+                        </div>
                     </div>
                     <div class="field">
                         <label asp-for="Message"></label>

@@ -187,6 +187,12 @@ namespace ECHTGROUP.Migrations
                     b.Property<DateTime>("CreatedUtc")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Department")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("General");
+
                     b.Property<bool>("FromConsultant")
                         .HasColumnType("bit");
 
@@ -212,6 +218,12 @@ namespace ECHTGROUP.Migrations
 
                     b.Property<DateTime>("CreatedUtc")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Department")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("General");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -246,6 +258,12 @@ namespace ECHTGROUP.Migrations
 
                     b.Property<DateTime>("CreatedUtc")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Department")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("General");
 
                     b.Property<string>("Email")
                         .IsRequired()

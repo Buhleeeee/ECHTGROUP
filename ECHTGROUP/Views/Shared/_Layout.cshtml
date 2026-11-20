@@ -1,5 +1,6 @@
 ﻿@{
     var mainClass = ViewContext.RouteData.Values["area"]?.ToString() == "Identity" ? "wrap idp" : "";
+    var bodyClass = (User.IsInRole("Consultant") || User.IsInRole("Admin")) ? "is-staff" : "";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +20,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-<body>
+<body class="@bodyClass">
     <div id="splash" aria-hidden="true">
         <div class="sp-mark">eg.</div>
         <div class="sp-name">ECHT GROUP</div>
@@ -40,7 +41,7 @@
                     @await Component.InvokeAsync("HeaderAvatar")
                     @if (!(User.IsInRole("Consultant") || User.IsInRole("Admin")))
                     {
-                        <a class="btn-echt hb" asp-controller="Booking" asp-action="Create">Book</a>
+                        <a class="btn-echt client-only" asp-controller="Booking" asp-action="Create">Book a consultation</a>
                     }
                 </div>
             </nav>
