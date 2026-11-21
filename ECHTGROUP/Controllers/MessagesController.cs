@@ -20,21 +20,12 @@ namespace ECHTGROUP.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? topic)
         {
             if (IsStaff()) return RedirectToAction("Index", "Consultant");
 
             var userId = _userManager.GetUserId(User)!;
-            var messages = await LoadThread(userId);
-
-            var unread = messages.Where(m => m.FromConsultant && !m.IsRead).ToList();
-            if (unread.Count > 0)
-            {
-                unread.ForEach(m => m.IsRead = true);
-                await _db.SaveChangesAsync();
-            }
-
-            return View(new ThreadViewModel { Messages = messages });
+            return View(await BuildModel(userId, CleanTopic(topic), new ThreadViewModel()));
         }
 
         [HttpPost]
@@ -44,31 +35,51 @@ namespace ECHTGROUP.Controllers
             if (IsStaff()) return RedirectToAction("Index", "Consultant");
 
             var userId = _userManager.GetUserId(User)!;
+            var topic = CleanTopic(model.Topic);
 
             if (!ModelState.IsValid)
-            {
-                model.Messages = await LoadThread(userId);
-                return View(model);
-            }
+                return View(await BuildModel(userId, topic, model));
 
             _db.ChatMessages.Add(new ChatMessage
             {
                 ClientId = userId,
                 SenderId = userId,
                 FromConsultant = false,
-                Body = model.Body.Trim()
+                Body = model.Body.Trim(),
+                Department = topic
             });
             await _db.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { topic });
+        }
+
+        private async Task<ThreadViewModel> BuildModel(string userId, string topic, ThreadViewModel model)
+        {
+            model.Topic = topic;
+            model.Messages = await _db.ChatMessages
+                .Where(m => m.ClientId == userId && m.Department == topic)
+                .OrderBy(m => m.CreatedUtc)
+                .ToListAsync();
+
+            var unread = model.Messages.Where(m => m.FromConsultant && !m.IsRead).ToList();
+            if (unread.Count > 0)
+            {
+                unread.ForEach(m => m.IsRead = true);
+                await _db.SaveChangesAsync();
+            }
+
+            model.UnreadByTopic = await _db.ChatMessages
+                .Where(m => m.ClientId == userId && m.FromConsultant && !m.IsRead)
+                .GroupBy(m => m.Department)
+                .Select(g => new { Topic = g.Key, Count = g.Count() })
+                .ToDictionaryAsync(x => x.Topic, x => x.Count);
+
+            return model;
         }
 
         private bool IsStaff() => User.IsInRole("Consultant") || User.IsInRole("Admin");
 
-        private Task<List<ChatMessage>> LoadThread(string clientId) =>
-            _db.ChatMessages
-                .Where(m => m.ClientId == clientId)
-                .OrderBy(m => m.CreatedUtc)
-                .ToListAsync();
+        private static string CleanTopic(string? topic) =>
+            topic != null && Departments.Topics.Contains(topic) ? topic : Departments.General;
     } //end of class
 } //end of namespace

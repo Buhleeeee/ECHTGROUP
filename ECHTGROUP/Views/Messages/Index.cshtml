@@ -1,4 +1,5 @@
-﻿@model ECHTGROUP.Models.ThreadViewModel
+﻿@using ECHTGROUP.Models
+@model ThreadViewModel
 @{
     ViewData["Title"] = "Messages";
 }
@@ -6,12 +7,20 @@
 <section class="band">
     <div class="wrap">
         <h1>Messages</h1>
-        <p class="lead">Write to your ECHT GROUP consultant here. We’ll reply as soon as we can.</p>
+        <p class="lead">Choose a topic so your message reaches the right consultant. We’ll reply as soon as we can.</p>
+
+        <div class="tlinks" aria-label="Topic">
+            @foreach (var t in Departments.TopicChoices)
+            {
+                var unread = Model.UnreadByTopic.TryGetValue(t, out var n) ? n : 0;
+                <a class="@(t == Model.Topic ? "on" : "")" asp-action="Index" asp-route-topic="@t">@(t + (unread > 0 ? " (" + unread + ")" : ""))</a>
+            }
+        </div>
 
         <div class="thread" id="thread">
             @if (Model.Messages.Count == 0)
             {
-                <p class="meta">No messages yet. Say hello below.</p>
+                <p class="meta">No messages about @Model.Topic yet. Say hello below.</p>
             }
             @foreach (var m in Model.Messages)
             {
@@ -23,8 +32,9 @@
         </div>
 
         <form asp-action="Index" method="post" class="msgform">
+            <input type="hidden" asp-for="Topic" />
             <div class="field">
-                <label asp-for="Body">Your message</label>
+                <label asp-for="Body">Your message about @Model.Topic</label>
                 <textarea asp-for="Body" class="pill area" rows="3"></textarea>
                 <span asp-validation-for="Body" class="err"></span>
             </div>

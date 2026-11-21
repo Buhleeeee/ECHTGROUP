@@ -1,4 +1,5 @@
-﻿@model List<ECHTGROUP.Models.InboxItemViewModel>
+﻿@using ECHTGROUP.Models
+@model InboxViewModel
 @{
     ViewData["Title"] = "Inbox";
 }
@@ -6,26 +7,55 @@
 <section class="band">
     <div class="wrap">
         <h1>Inbox</h1>
-        <p class="lead">Conversations with clients.</p>
-        <p><a class="btn-echt g" asp-action="Enquiries">Enquiries and contact messages</a></p>
+        <p class="lead">@(Model.OpenCount == 1 ? "1 item needs" : Model.OpenCount + " items need") attention.</p>
 
-        @if (Model.Count == 0)
+        <form method="get" asp-action="Index" class="filters">
+            <select name="type" class="pill" aria-label="Type">
+                <option value="">All types</option>
+                <option value="chat" selected="@(Model.Type == "chat")">Chats</option>
+                <option value="contact" selected="@(Model.Type == "contact")">Contact messages</option>
+                <option value="enquiry" selected="@(Model.Type == "enquiry")">Enquiries</option>
+            </select>
+            <select name="status" class="pill" aria-label="Status">
+                <option value="">Any status</option>
+                <option value="open" selected="@(Model.Status == "open")">Needs attention</option>
+                <option value="done" selected="@(Model.Status == "done")">Done</option>
+            </select>
+            <select name="dept" class="pill" aria-label="Department">
+                <option value="">@(Model.SeesAll ? "All departments" : "My department and General")</option>
+                @foreach (var d in Model.DeptChoices)
+                {
+                    <option value="@d" selected="@(Model.Dept == d)">@d</option>
+                }
+            </select>
+            <button class="btn-echt g" type="submit">Filter</button>
+        </form>
+
+        @if (Model.Items.Count == 0)
         {
-            <p>No messages yet.</p>
+            <p>Nothing here.</p>
         }
 
-        @foreach (var i in Model)
+        @foreach (var i in Model.Items)
         {
-            <a class="inrow" asp-action="Thread" asp-route-id="@i.ClientId">
-                <div>
-                    <div class="who">@i.ClientName</div>
-                    <div class="prev">@i.LastMessage</div>
+            var url = i.Type == "Chat"
+                ? Url.Action("Thread", "Consultant", new { id = i.ClientId, dept = i.Department })
+                : Url.Action("Detail", "Consultant", new { type = i.Type.ToLower(), id = i.Id });
+
+            <a class="inrow @(i.NeedsAttention ? "" : "done")" href="@url">
+                <div class="imain">
+                    <div class="who">@i.Name <span class="tag">@i.Type</span> <span class="tag">@i.Department</span></div>
+                    <div class="prev">@i.Preview</div>
                 </div>
                 <div class="bright">
                     <span class="stamp">@i.LastAt.ToLocalTime().ToString("d MMM HH:mm")</span>
                     @if (i.Unread > 0)
                     {
                         <span class="unread">@i.Unread new</span>
+                    }
+                    else if (i.NeedsAttention)
+                    {
+                        <span class="unread">Open</span>
                     }
                 </div>
             </a>

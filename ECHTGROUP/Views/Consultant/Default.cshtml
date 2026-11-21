@@ -1,0 +1,40 @@
+﻿@model ECHTGROUP.Models.InboxDetailViewModel
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<section class="band">
+    <div class="wrap">
+        <p class="crumb"><a asp-action="Index">Inbox</a> / @Model.Name</p>
+        <h1>@Model.Name <span class="tag">@(Model.Type == "contact" ? "Contact" : "Enquiry")</span> <span class="tag">@Model.Department</span></h1>
+
+        <dl class="dl">
+            <dt>Email</dt>
+            <dd><a href="mailto:@Model.Email">@Model.Email</a></dd>
+
+            @if (!string.IsNullOrEmpty(Model.Phone))
+            {
+                <dt>Phone</dt>
+                <dd>@Model.Phone</dd>
+            }
+
+            <dt>Received</dt>
+            <dd>@Model.CreatedUtc.ToLocalTime().ToString("d MMM yyyy HH:mm")</dd>
+
+            <dt>Status</dt>
+            <dd>@(Model.IsHandled ? "Handled" : "Needs attention")</dd>
+        </dl>
+
+        @if (!string.IsNullOrEmpty(Model.Body))
+        {
+            <div class="rcard"><p class="rtext">@Model.Body</p></div>
+        }
+
+        <div class="acts">
+            <a class="btn-echt" href="mailto:@Model.Email">Reply by email</a>
+            <form asp-action="ToggleHandled" asp-route-type="@Model.Type" asp-route-id="@Model.Id" method="post">
+                <button type="submit" class="btn-echt g">@(Model.IsHandled ? "Reopen" : "Mark handled")</button>
+            </form>
+        </div>
+    </div>
+</section>

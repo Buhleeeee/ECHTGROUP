@@ -1656,3 +1656,70 @@ select.pill {
 .is-staff .client-only {
     display: none !important;
 }
+/* ---------- Unified inbox ---------- */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 8px 0 24px;
+}
+
+    .filters .pill {
+        width: auto;
+        min-width: 180px;
+    }
+
+.imain {
+    min-width: 0;
+}
+
+.inrow.done {
+    opacity: .6;
+}
+
+.tag {
+    font-size: 12px;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--navy);
+    margin-left: 6px;
+    font-weight: 500;
+}
+
+.dl {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 8px 16px;
+    margin: 16px 0 24px;
+}
+
+    .dl dt {
+        color: var(--mute);
+    }
+
+    .dl dd {
+        margin: 0;
+    }
+
+.tlinks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 8px 0 20px;
+}
+
+    .tlinks a {
+        padding: 8px 16px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #fff;
+        text-decoration: none;
+        color: var(--ink);
+    }
+
+        .tlinks a.on {
+            background: var(--navy);
+            color: #fff;
+            border-color: var(--navy);
+        }
