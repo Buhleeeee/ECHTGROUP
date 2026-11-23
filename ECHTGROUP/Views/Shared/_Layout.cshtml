@@ -39,14 +39,15 @@
                 <div class="hr">
                     <button class="icon" id="searchBtn" type="button" aria-label="Search" aria-expanded="false" aria-controls="searchBar"><i class="bi bi-search"></i></button>
                     @await Component.InvokeAsync("HeaderAvatar")
-                    @if (!(User.IsInRole("Consultant") || User.IsInRole("Admin")))
-                    {
-                        <a class="btn-echt client-only" asp-controller="Booking" asp-action="Create">Book a consultation</a>
-                    }
+                    
                 </div>
             </nav>
         </div>
         <div class="menu" id="menu">
+            if (User.IsInRole("Admin"))
+            {
+            <a asp-area="" asp-controller="ManageTeam" asp-action="Index">Manage team</a>
+            }
             <ul class="links">
                 <li><a asp-controller="Home" asp-action="Index">Home</a></li>
                 <li>
@@ -58,8 +59,8 @@
                         <li><a asp-controller="Services" asp-action="Details" asp-route-id="it">IT</a></li>
                     </ul>
                 </li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Team</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="Team">Team</a></li>
                 <li><a asp-controller="Home" asp-action="Insights">Insights</a></li>
                 <li><a asp-controller="Home" asp-action="FAQ">FAQ</a></li>
                 <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
@@ -90,10 +91,6 @@
                     <a class="btn-echt g" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
                 }
 
-                @if (!(User.IsInRole("Consultant") || User.IsInRole("Admin")))
-                {
-                    <a class="btn-echt" asp-controller="Booking" asp-action="Create">Book</a>
-                }
             </div>
         </div>
         <div class="searchbar" id="searchBar">
@@ -126,8 +123,8 @@
                 </div>
                 <div>
                     <h4>Company</h4>
-                    <a href="#">About</a>
-                    <a href="#">Team</a>
+                    <a asp-area="" asp-controller="Home" asp-action="About">About</a>
+                    <a asp-area="" asp-controller="Home" asp-action="Team">Team</a>
                     <a asp-controller="Home" asp-action="Insights">Insights</a>
                     <li><a asp-controller="Reviews" asp-action="Index">Reviews</a></li>
                     <a asp-controller="Home" asp-action="FAQ">FAQ</a>

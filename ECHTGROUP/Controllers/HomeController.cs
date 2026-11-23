@@ -2,6 +2,7 @@ using ECHTGROUP.Data;
 using ECHTGROUP.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECHTGROUP.Controllers
 { //start of namespace
@@ -31,11 +32,6 @@ namespace ECHTGROUP.Controllers
         }
 
         public IActionResult About()
-        {
-            return View();
-        }
-
-        public IActionResult Team()
         {
             return View();
         }
@@ -170,5 +166,14 @@ namespace ECHTGROUP.Controllers
         private static string CleanTopic(string? topic) =>
             topic != null && Departments.Topics.Contains(topic) ? topic : Departments.General;
 
+        public async Task<IActionResult> Team()
+        { //start of method
+            var members = await _db.TeamMembers
+                .Where(m => m.IsVisible)
+                .OrderBy(m => m.SortOrder).ThenBy(m => m.Name)
+                .ToListAsync();
+            return View(members);
+        } //end of method 
     } //end of class
+
 } //end of namespace

@@ -1422,101 +1422,7 @@ select.pill {
         object-fit: cover;
     }
 
-/* ---------- Chat bubble ---------- */
-.cb {
-    position: fixed;
-    right: 20px;
-    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
-    z-index: 40;
-}
 
-.cb-btn {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    border: 0;
-    background: var(--navy);
-    color: #fff;
-    font-size: 24px;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-    box-shadow: 0 8px 24px rgba(35, 43, 71, .3);
-    transition: transform .2s;
-}
-
-    .cb-btn:hover {
-        transform: scale(1.07);
-    }
-
-.cb-panel {
-    display: none;
-    position: absolute;
-    right: 0;
-    bottom: 70px;
-    width: min(340px, calc(100vw - 40px));
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(35, 43, 71, .25);
-    overflow: hidden;
-}
-
-.cb.open .cb-panel {
-    display: block;
-}
-
-.cb-head {
-    background: var(--navy);
-    color: #fff;
-    padding: 14px 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.cb-x {
-    background: none;
-    border: 0;
-    color: #fff;
-    font-size: 24px;
-    line-height: 1;
-    cursor: pointer;
-}
-
-.cb-body {
-    padding: 16px;
-    display: grid;
-    gap: 10px;
-    max-height: 60vh;
-    overflow: auto;
-}
-
-    .cb-body .btn-echt {
-        text-align: center;
-    }
-
-    .cb-body form {
-        display: grid;
-        gap: 10px;
-    }
-
-    .cb-body input, .cb-body textarea {
-        width: 100%;
-        padding: 10px 14px;
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        font: inherit;
-    }
-
-    .cb-body .hint {
-        margin: 0;
-    }
-
-@media (prefers-reduced-motion: reduce) {
-    .cb-btn {
-        transition: none;
-    }
-}
 /* ---------- Staff screen and reviews ---------- */
 .h2s {
     font-size: 22px;
@@ -1723,6 +1629,102 @@ select.pill {
             color: #fff;
             border-color: var(--navy);
         }
+/* ---------- Chat bubble ---------- */
+.cb {
+    position: fixed;
+    right: 20px;
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    z-index: 40;
+}
+
+.cb-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 0;
+    background: var(--navy);
+    color: #fff;
+    font-size: 24px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(35, 43, 71, .3);
+    transition: transform .2s;
+}
+
+    .cb-btn:hover {
+        transform: scale(1.07);
+    }
+
+.cb-panel {
+    display: none;
+    position: absolute;
+    right: 0;
+    bottom: 70px;
+    width: min(340px, calc(100vw - 40px));
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(35, 43, 71, .25);
+    overflow: hidden;
+}
+
+.cb.open .cb-panel {
+    display: block;
+}
+
+.cb-head {
+    background: var(--navy);
+    color: #fff;
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cb-x {
+    background: none;
+    border: 0;
+    color: #fff;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.cb-body {
+    padding: 16px;
+    display: grid;
+    gap: 10px;
+    max-height: 60vh;
+    overflow: auto;
+}
+
+    .cb-body .btn-echt {
+        text-align: center;
+    }
+
+    .cb-body form {
+        display: grid;
+        gap: 10px;
+    }
+
+    .cb-body input, .cb-body textarea {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        font: inherit;
+    }
+
+    .cb-body .hint {
+        margin: 0;
+    }
+
+@media (prefers-reduced-motion: reduce) {
+    .cb-btn {
+        transition: none;
+    }
+}
+
 /* ---------- Assistant ---------- */
 .cb [hidden] {
     display: none !important;
@@ -1803,4 +1805,139 @@ select.pill {
 .cb-note {
     font-size: 12px;
     margin: 0;
+}
+/* ---------- Profile ---------- */
+.phead { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+.phead h2 { border: 0; padding: 0; margin: 0 0 4px; }
+.avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; flex: none; }
+.avatar.ph { background: var(--navy); color: #fff; display: grid; place-items: center; font-size: 28px; font-weight: 700; }
+.role { font-size: 12px; padding: 2px 12px; border-radius: 999px; background: var(--bg); color: var(--navy); }
+.pill[type="file"] { padding: 10px 14px; }
+.rmphoto { margin-top: 12px; }
+
+/* ---------- Full profile ---------- */
+.prof { max-width: 720px; }
+.sec { font-size: 16px; margin: 24px 0 12px; padding-top: 16px; border-top: 1px solid var(--line); }
+.hint { font-size: 13px; color: var(--mute); }
+select.pill { appearance: auto; }
+
+/* ---------- Assistant fixes ---------- */
+.cb-log .bub.them {
+    background: var(--bg);
+    color: var(--ink);
+}
+
+.cb-log .bub.me {
+    background: var(--navy);
+    color: #fff;
+}
+
+.cb-panel {
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
+}
+
+.cb-body {
+    max-height: none;
+    overflow: visible;
+}
+
+.cb-log {
+    max-height: 240px;
+}
+.ph-note {
+    font-style: italic;
+    color: var(--mute);
+}
+
+.article h3 {
+    font-size: 18px;
+    margin: 28px 0 8px;
+}
+
+.article ul {
+    color: var(--ink);
+    padding-left: 20px;
+}
+
+.article li {
+    margin-bottom: 8px;
+}
+.faqh {
+    font-size: 22px;
+    margin: 36px 0 8px;
+}
+/* ---------- Team ---------- */
+.teamh {
+    font-size: 26px;
+    margin: 40px 0 16px;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.tcard {
+    background: var(--bg);
+    border-radius: 24px 24px 24px 6px;
+    padding: 28px;
+    text-align: center;
+}
+
+    .tcard h3 {
+        font-size: 20px;
+        margin: 12px 0 2px;
+    }
+
+.tphoto {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto;
+    display: block;
+}
+
+    .tphoto.ph {
+        background: var(--navy);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-size: 36px;
+        font-weight: 700;
+    }
+
+.ttitle {
+    color: var(--mute);
+    margin: 0 0 8px;
+}
+
+.tdept {
+    margin: 0 0 8px;
+    display: inline-block;
+}
+
+.tbio {
+    font-size: 14px;
+    color: var(--ink);
+    margin: 8px 0 0;
+    text-align: left;
+}
+
+.rowacts {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+    .rowacts .btn-echt {
+        padding: 6px 16px;
+        font-size: 14px;
+    }
+
+.erow .avatar {
+    margin-right: 12px;
 }

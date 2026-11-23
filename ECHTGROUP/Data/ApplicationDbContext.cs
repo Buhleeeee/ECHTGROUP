@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECHTGROUP.Data
-{ //sart of namespace
+{ //start of namespace
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     { //start of class
@@ -17,6 +17,7 @@ namespace ECHTGROUP.Data
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<ChatMessage> ChatMessages { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<TeamMember> TeamMembers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         { //start of method

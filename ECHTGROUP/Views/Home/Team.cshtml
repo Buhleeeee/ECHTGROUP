@@ -1,0 +1,56 @@
+﻿@using ECHTGROUP.Models
+@model List<TeamMember>
+@{
+    ViewData["Title"] = "Team";
+    var groups = new[]
+    {
+        (Key: TeamGroups.Leadership, Title: "Leadership"),
+        (Key: TeamGroups.Consultants, Title: "Our consultants"),
+        (Key: TeamGroups.Agents, Title: "Our agents")
+    };
+}
+
+<section class="band">
+    <div class="wrap">
+        <h1>Our team</h1>
+        <p class="lead">The people behind ECHT GROUP: one team across marketing, market development, legal and compliance, and IT.</p>
+
+        @if (Model.Count == 0)
+        {
+            <p>Our team profiles are being added.</p>
+        }
+
+        @foreach (var g in groups)
+        {
+            var people = Model.Where(m => m.Group == g.Key).ToList();
+            if (people.Count == 0) { continue; }
+
+            <h2 class="teamh rv">@g.Title</h2>
+            <div class="team-grid">
+                @foreach (var p in people)
+                {
+                    <div class="tcard rv">
+                        @if (!string.IsNullOrEmpty(p.PhotoPath))
+                        {
+                            <img class="tphoto" src="@p.PhotoPath" alt="@p.Name" />
+                        }
+                        else
+                        {
+                            <div class="tphoto ph" aria-hidden="true">@p.Name.Trim().Substring(0, 1).ToUpper()</div>
+                        }
+                        <h3>@p.Name</h3>
+                        <p class="ttitle">@p.JobTitle</p>
+                        @if (!string.IsNullOrEmpty(p.Department) && p.Department != Departments.Management)
+                        {
+                            <span class="tag tdept">@p.Department</span>
+                        }
+                        @if (!string.IsNullOrEmpty(p.Bio))
+                        {
+                            <p class="tbio">@p.Bio</p>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>

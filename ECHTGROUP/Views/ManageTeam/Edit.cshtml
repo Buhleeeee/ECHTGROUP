@@ -1,0 +1,89 @@
+﻿@using ECHTGROUP.Models
+@model TeamMemberForm
+@{
+    var isNew = Model.Id == 0;
+    ViewData["Title"] = isNew ? "Add a team member" : "Edit team member";
+    var groups = new SelectList(TeamGroups.All);
+    var departments = new SelectList(Departments.Staff);
+}
+
+<section class="gs">
+    <div class="wrap">
+        <div class="gs-card auth-card prof">
+            <h2>@(isNew ? "Add a team member" : "Edit team member")</h2>
+
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Id" />
+                <div asp-validation-summary="ModelOnly" class="err"></div>
+
+                <div class="field">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="pill" />
+                    <span asp-validation-for="Name" class="err"></span>
+                </div>
+                <div class="field">
+                    <label asp-for="JobTitle"></label>
+                    <input asp-for="JobTitle" class="pill" placeholder="For example Chief Executive Officer" />
+                    <span asp-validation-for="JobTitle" class="err"></span>
+                </div>
+
+                <div class="gs-two">
+                    <div class="field">
+                        <label asp-for="Group"></label>
+                        <select asp-for="Group" asp-items="groups" class="pill"></select>
+                        <span asp-validation-for="Group" class="err"></span>
+                    </div>
+                    <div class="field">
+                        <label asp-for="Department"></label>
+                        <select asp-for="Department" asp-items="departments" class="pill">
+                            <option value="">None</option>
+                        </select>
+                        <span asp-validation-for="Department" class="err"></span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label asp-for="Bio"></label>
+                    <textarea asp-for="Bio" class="pill area" rows="4"></textarea>
+                    <span class="hint">A short bio, up to 600 characters.</span>
+                    <span asp-validation-for="Bio" class="err"></span>
+                </div>
+
+                <div class="gs-two">
+                    <div class="field">
+                        <label asp-for="SortOrder"></label>
+                        <input asp-for="SortOrder" type="number" class="pill" />
+                        <span class="hint">Lower numbers appear first within a group.</span>
+                        <span asp-validation-for="SortOrder" class="err"></span>
+                    </div>
+                    <div class="field">
+                        <label class="chk">
+                            <input asp-for="IsVisible" />
+                            <span>Show on the Team page</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label asp-for="Photo"></label>
+                    @if (!string.IsNullOrEmpty(Model.PhotoPath))
+                    {
+                        <img class="avatar" src="@Model.PhotoPath" alt="Current photo" />
+                        <label class="chk"><input type="checkbox" name="RemovePhoto" value="true" /> <span>Remove the current photo</span></label>
+                    }
+                    <input asp-for="Photo" class="pill" accept="image/png,image/jpeg,image/webp" />
+                    <span class="hint">JPG, PNG or WebP, up to 2 MB. Only add a photo with the person's permission.</span>
+                    <span asp-validation-for="Photo" class="err"></span>
+                </div>
+
+                <div class="gs-go"><button class="btn-echt" type="submit">Save</button></div>
+            </form>
+
+            <p class="auth-alt"><a asp-action="Index">Back to the list</a></p>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

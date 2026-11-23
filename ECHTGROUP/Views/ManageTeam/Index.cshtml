@@ -1,0 +1,64 @@
+﻿@model List<ECHTGROUP.Models.TeamMember>
+@{
+    ViewData["Title"] = "Manage team";
+}
+
+<section class="band">
+    <div class="wrap">
+        <h1>Manage team</h1>
+        <p class="lead">These profiles appear on the public Team page. Only people marked as visible are shown.</p>
+
+        @if (TempData["Thanks"] is string thanks)
+        {
+            <p class="ok">@thanks</p>
+        }
+
+        <p><a class="btn-echt" asp-action="Create">Add a team member</a></p>
+
+        @if (Model.Count == 0)
+        {
+            <p>No team members yet.</p>
+            <form asp-action="AddSamples" method="post">
+                <button type="submit" class="btn-echt g">Add sample profiles (CEO, COO, 4 consultants, agent)</button>
+            </form>
+        }
+
+        @foreach (var m in Model)
+        {
+            <div class="erow @(m.IsVisible ? "" : "done")">
+                @if (!string.IsNullOrEmpty(m.PhotoPath))
+                {
+                    <img class="avatar" src="@m.PhotoPath" alt="" />
+                }
+                else
+                {
+                    <div class="avatar ph" aria-hidden="true">@m.Name.Trim().Substring(0, 1).ToUpper()</div>
+                }
+                <div class="ebody">
+                    <b>@m.Name</b> · @m.JobTitle
+                    <div class="meta">
+                        <span class="tag">@m.Group</span>
+                        @if (!string.IsNullOrEmpty(m.Department))
+                        {
+                            <span class="tag">@m.Department</span>
+                        }
+                        <span class="tag">Order @m.SortOrder</span>
+                        @if (!m.IsVisible)
+                        {
+                            <span class="tag">Hidden</span>
+                        }
+                    </div>
+                </div>
+                <div class="rowacts">
+                    <a class="btn-echt g" asp-action="Edit" asp-route-id="@m.Id">Edit</a>
+                    <form asp-action="ToggleVisible" asp-route-id="@m.Id" method="post">
+                        <button type="submit" class="btn-echt g">@(m.IsVisible ? "Hide" : "Show")</button>
+                    </form>
+                    <form asp-action="Delete" asp-route-id="@m.Id" method="post" onsubmit="return confirm('Remove this team member?');">
+                        <button type="submit" class="link-btn">Delete</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</section>

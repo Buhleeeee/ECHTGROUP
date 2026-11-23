@@ -28,7 +28,8 @@ namespace ECHTGROUP.Models
         private static readonly HashSet<string> Greetings = new() { "hi", "hello", "hey", "howzit", "hallo", "morning", "afternoon", "evening" };
 
         public static AssistantReply Reply(AskRequest req)
-        {
+        { //start of method 
+            //this handles the replys given by the chat assistant
             var context = req.Dept != null && Departments.Topics.Contains(req.Dept) ? req.Dept : null;
             var choice = req.Choice ?? "";
 
@@ -40,13 +41,13 @@ namespace ECHTGROUP.Models
             if (choice.StartsWith("handoff:")) return Handoff(DeptFrom(choice) ?? context ?? Departments.General);
 
             return FromText(req.Text ?? "", context);
-        }
+        } //end of method
 
         private static AssistantReply FromText(string text, string? context)
-        {
+        { //start of method
             var words = Tokens(text);
             if (words.Length == 0) return Start();
-
+            //the chatbot detects and expects words that contain or rather are related to what echtgroup offers
             var dept = Detect(words);
             var detailed = text.Length >= 140
                 || words.Any(w => DetailWords.Contains(w))

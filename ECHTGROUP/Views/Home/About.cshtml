@@ -1,4 +1,5 @@
-﻿@{
+﻿@using ECHTGROUP.Models
+@{
     ViewData["Title"] = "About";
 }
 
@@ -7,15 +8,65 @@
         <h1>About ECHT GROUP</h1>
         <div class="dcols2">
             <div>
-                <p>Founded in 2022, ECHT GROUP is a consulting company for businesses that want growth without blind spots.</p>
-                <p>By bringing four disciplines under one roof, we give you a single point of contact and advice that fits together.</p>
-                <a class="btn-echt" asp-controller="Home" asp-action="Team">Meet the team</a>
+                <p class="lead2">Founded in 2022, ECHT GROUP is a consulting company for businesses that want growth without blind spots.</p>
+                <p>A marketing plan needs a legal check. A new market needs the right systems behind it. By bringing four disciplines under one roof, we give you a single point of contact and advice that fits together.</p>
+                <p class="ph-note">[Add the ECHT GROUP story here: why it started, who it helps, and what makes it different.]</p>
+                <div class="acts">
+                    <a class="btn-echt" asp-controller="Home" asp-action="Team">Meet the team</a>
+                    <a class="btn-echt btn-quote client-only" asp-controller="Home" asp-action="GetStarted">Get a free quote</a>
+                </div>
             </div>
             <ul class="facts">
                 <li><b>4</b>disciplines</li>
                 <li><b>1</b>team, one plan</li>
                 <li><b>2022</b>advising growing businesses</li>
             </ul>
+        </div>
+    </div>
+</section>
+
+<section class="band alt">
+    <div class="wrap">
+        <h2 class="rv">What we stand for</h2>
+        <div class="svc-grid">
+            <div class="scard rv">
+                <h3>Joined-up advice</h3>
+                <p>Marketing, market development, legal and IT planned together, so nothing is decided in isolation.</p>
+            </div>
+            <div class="scard rv">
+                <h3>One clear plan</h3>
+                <p>You get priorities, owners, timelines and costs on a single roadmap, from the first call to the final handover.</p>
+            </div>
+            <div class="scard rv">
+                <h3>One point of contact</h3>
+                <p>A single team that understands your whole business, instead of several advisers who never speak to each other.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="band">
+    <div class="wrap">
+        <h2 class="rv">How we work</h2>
+        <div class="steps">
+            <div class="rv"><div class="sn">1</div><h3>Listen</h3><p>We learn your business, your market and your goals before we recommend anything.</p></div>
+            <div class="rv"><div class="sn">2</div><h3>Plan</h3><p>You get a clear roadmap with priorities, owners, timelines and costs.</p></div>
+            <div class="rv"><div class="sn">3</div><h3>Deliver</h3><p>We work alongside your team, track results and adjust as the market moves.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="band alt">
+    <div class="wrap">
+        <h2 class="rv">Our four disciplines</h2>
+        <div class="svc-grid">
+            @foreach (var s in ServiceData.All)
+            {
+                <a class="scard rv" asp-controller="Services" asp-action="Details" asp-route-id="@s.Slug">
+                    <h3>@s.Title</h3>
+                    <p>@s.Summary</p>
+                </a>
+            }
         </div>
     </div>
 </section>
